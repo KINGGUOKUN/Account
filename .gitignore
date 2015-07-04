@@ -45,6 +45,6 @@ Temporary Items
 # 忽略bin、obj、Debug、Release
 bin/
 obj/
-/Debug
-/Release
+Debug/
+Release/
 
