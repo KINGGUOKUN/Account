@@ -1,7 +1,0 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!--默认DatePicker样式-->
-    <Style TargetType="{x:Type DatePicker}">
-        <Setter Property="FirstDayOfWeek" Value="Monday"/>
-    </Style>
-</ResourceDictionary>
