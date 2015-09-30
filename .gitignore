@@ -48,5 +48,8 @@ obj/
 Debug/
 Release/
 
+# 忽略Nuget包管理器自动添加的DLL引用
+packages/
+
 *.suo
 Account/Account.v12.suo
