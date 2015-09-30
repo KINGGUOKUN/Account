@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="Account.MonthlyManagement.View.MonthlyManagementView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:GuoKun.CustomControls;assembly=GuoKun.CustomControls"
+             xmlns:converter="clr-namespace:Account.MonthlyManagement.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="500">
+    <UserControl.Resources>
+        <converter:ForegroundConverter x:Key="ForegroundConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5,5,5,5">
+            <Label>开始月份:</Label>
+            <StackPanel>
+                <controls:CusDatePicker Name="cdpStart" Width="100" SelectedTime="{Binding Start,Mode=TwoWay}" DisplayMode="Year"
+                                    BorderBrush="Gray" BorderThickness="1" DisplayTimeEnd="{Binding End,Mode=TwoWay}"/>
+            </StackPanel>
+            <Label Margin="5,0,0,0">结束月份:</Label>
+            <controls:CusDatePicker Name="cdpEnd" Width="100" SelectedTime="{Binding End, Mode=TwoWay}" DisplayMode="Year"
+                                    BorderBrush="Gray" BorderThickness="1" DisplayTimeStart="{Binding Start,Mode=TwoWay}"/>
+            <Button Command="{Binding Refresh}" CommandParameter="search"
+                    Width="60" Margin="10,0,5,0" IsEnabled="{Binding IsBtnEnable}" Content="查     询"></Button>
+            <Button Command="{Binding Refresh}" CommandParameter="reset"
+                    Width="60" IsEnabled="{Binding IsBtnEnable}" Content="重   置"></Button>
+        </StackPanel>
+        <DataGrid Name="dgMonthly" Grid.Row="1" ItemsSource="{Binding Monthlys}" 
+                  SelectedItem="{Binding SelectedItem}" MouseDoubleClick="dgMonthly_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="月       份" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock HorizontalAlignment="Center" Text="{Binding Month}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="花       销" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Width="100" HorizontalAlignment="Center" TextAlignment="Right"
+                                       Text="{Binding Cost, StringFormat=.00}"
+                                       Foreground="{Binding Cost,Converter={StaticResource ForegroundConverter}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                   Text="加 载 中···" FontSize="20" Visibility="{Binding RefreshingVisibility}"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="5,5,5,5">
+            <Button Command="{Binding Refresh}" CommandParameter="refresh" 
+                    Width="60" Height="30" Margin="5,0,5,0" IsEnabled="{Binding IsBtnEnable}" Content="刷      新"></Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
