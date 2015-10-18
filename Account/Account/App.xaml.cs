@@ -17,14 +17,23 @@ namespace Account
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            //显示初始化提示框
             GuoKun.CustomControls.CustomMessageBox messageBox = new GuoKun.CustomControls.CustomMessageBox("系统正在初始化······");
             messageBox.Show();
             this.DispatcherUnhandledException += App_DispatcherUnhandledException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
-            BootstrapperConfiguration bootstrapperConfiguration = ConfigurationManager.GetSection("account/bootstrapper") as BootstrapperConfiguration;
+            //加载系统样式
+            ResourceDictionary defaultDictionary = new ResourceDictionary()
+            {
+                Source = new Uri("/GuoKun.Themes;component/Themes/Default.xaml", UriKind.RelativeOrAbsolute),
+            };
+            this.Resources.MergedDictionaries.Add(defaultDictionary);
 
-            CustomMefBootstrapper<Shell> bootstrapper = new CustomMefBootstrapper<Shell>(bootstrapperConfiguration, this);
+            //系统初始化
+            BootstrapperConfiguration bootstrapperConfiguration = ConfigurationManager.GetSection("account/bootstrapper") as BootstrapperConfiguration;
+            CustomMefBootstrapper<Shell> bootstrapper = new CustomMefBootstrapper<Shell>(bootstrapperConfiguration);
             bootstrapper.Run(true);
 
             _log = UnityContainerFactory.GetUnityContainer().Resolve<ILog>();

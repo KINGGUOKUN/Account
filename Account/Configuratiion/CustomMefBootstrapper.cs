@@ -24,22 +24,19 @@ namespace GuoKun.Configuration
 
         private ILog _log;
 
-        private Application _application;
-
         private List<AutoResetEvent> _autoResetEvents = new List<AutoResetEvent>();
 
         #endregion
 
         #region Constructors
 
-        public CustomMefBootstrapper(BootstrapperConfiguration configuration, Application application)
+        public CustomMefBootstrapper(BootstrapperConfiguration configuration)
         {
             if (configuration == null)
             {
                 throw new ArgumentNullException("configuration为空");
             }
             _configuration = configuration;
-            _application = application;
         }
 
         #endregion
@@ -79,7 +76,7 @@ namespace GuoKun.Configuration
 
         protected override DependencyObject CreateShell()
         {
-            this.InitThems();
+            //this.InitThems();
             this.InitializeDatabase();
             return this.Container.GetExportedValue<T>();
         }
@@ -91,39 +88,39 @@ namespace GuoKun.Configuration
             Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
         }
 
-        private void InitThems()
-        {
-            AsyncOperation operation = AsyncOperationManager.CreateOperation(null);
-            AutoResetEvent autoResetEvent = new AutoResetEvent(false);
-            _autoResetEvents.Add(autoResetEvent);
-            ThreadPool.QueueUserWorkItem(o =>
-            {
-                AsyncOperation asyncOperation = o as AsyncOperation;
-                try
-                {
-                    ResourceDictionary defaultDictionary = new ResourceDictionary()
-                    {
-                        Source = new Uri("/GuoKun.Themes;component/Themes/Default.xaml", UriKind.RelativeOrAbsolute),
-                    };
-                    _application.Resources.MergedDictionaries.Add(defaultDictionary);
-                }
-                catch(Exception e)
-                {
-                    _log.Fatal("初始化系统样式异常:", e);
-                    asyncOperation.Post
-                        (
-                            x =>
-                            {
-                                MessageBox.Show("初始化系统样式异常，系统将退出！");
-                                Environment.Exit(-1);
-                            },
-                             null
-                         );
-                }
-                asyncOperation.OperationCompleted();
-                autoResetEvent.Set();
-            }, operation);
-        }
+        //private void InitThems()
+        //{
+        //    AsyncOperation operation = AsyncOperationManager.CreateOperation(null);
+        //    AutoResetEvent autoResetEvent = new AutoResetEvent(false);
+        //    _autoResetEvents.Add(autoResetEvent);
+        //    ThreadPool.QueueUserWorkItem(o =>
+        //    {
+        //        AsyncOperation asyncOperation = o as AsyncOperation;
+        //        try
+        //        {
+        //            ResourceDictionary defaultDictionary = new ResourceDictionary()
+        //            {
+        //                Source = new Uri("/GuoKun.Themes;component/Themes/Default.xaml", UriKind.RelativeOrAbsolute),
+        //            };
+        //            _application.Resources.MergedDictionaries.Add(defaultDictionary);
+        //        }
+        //        catch(Exception e)
+        //        {
+        //            _log.Fatal("初始化系统样式异常:", e);
+        //            asyncOperation.Post
+        //                (
+        //                    x =>
+        //                    {
+        //                        MessageBox.Show("初始化系统样式异常，系统将退出！");
+        //                        Environment.Exit(-1);
+        //                    },
+        //                     null
+        //                 );
+        //        }
+        //        asyncOperation.OperationCompleted();
+        //        autoResetEvent.Set();
+        //    }, operation);
+        //}
 
         private void InitializeDatabase()
         {
