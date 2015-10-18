@@ -155,8 +155,7 @@ namespace GuoKun.Configuration
                 }
                 asyncOperation.OperationCompleted();
                 autoResetEvent.Set();
-            }, operation);
-            
+            }, operation);         
         }
     }
 }
