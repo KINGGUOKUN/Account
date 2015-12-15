@@ -1,0 +1,58 @@
+﻿body {
+    background-color: #ddd !important;
+}
+h3 {
+    margin-top: 0;
+}
+.badge {
+    background-color: #777;
+}
+.tabs-left {
+    margin-top: 3rem;
+}
+.nav-tabs {
+    float: left;
+    border-bottom: 0;
+}
+.nav-tabs li {
+    float: none !important;
+    margin: 0;
+    !important
+}
+.nav-tabs li a {
+    margin-right: 0 !important;
+    border: 0 !important;
+    background-color: #333;
+    border-radius: 0 !important;
+}
+li.active {
+    border-right: 1px solid white !important;
+}
+.nav-tabs li a:hover {
+    background-color: #444;
+    border: 0 !important;
+}
+.nav-tabs .glyphicon {
+    color: #fff;
+}
+.nav-tabs .active .glyphicon {
+    color: #333;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    border: 0 !important;
+}
+.tab-content {
+    margin-left: 45px;
+}
+.tab-content .tab-pane {
+    display: none;
+    background-color: #fff;
+    height: auto;
+    padding: 1.6rem;
+    overflow-y: auto;
+}
+.tab-content .active {
+    display: block;
+}
