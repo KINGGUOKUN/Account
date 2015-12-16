@@ -4,8 +4,16 @@
 
 function YearlyViewModel() {
     var self = this;
+    $("#rangeYearly input").datepicker({
+        format: "yyyy",
+        minViewMode: 2,
+        language: "zh-CN",
+        autoclose: true
+    });
     this.start = ko.observable(moment().add(-3, "years").year());
     this.end = ko.observable(moment().year());
+    $($("#rangeYearly").children("input").get(0)).datepicker("setDate", this.start().toString());
+    $($("#rangeYearly").children("input").get(1)).datepicker("setDate", this.end().toString());
     this.yearlys = ko.observableArray();
     this.count = ko.pureComputed(function () {
         return self.yearlys().length;

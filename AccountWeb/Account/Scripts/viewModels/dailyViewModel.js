@@ -5,8 +5,16 @@
 //日消费清单
 function DailyViewModel() {
     var self = this;
-    this.startDate = ko.observable(moment().add(-1, "months").format("YYYY-MM-DD"));
-    this.endDate = ko.observable(moment().format("YYYY-MM-DD"));
+    $("#rangeDaily input").datepicker({
+        format: "yyyy-mm-dd",
+        minViewMode: 0,
+        language: "zh-CN",
+        autoclose: true
+    });
+    this.start = ko.observable(moment().add(-1, "months").format("YYYY-MM-DD"));
+    this.end = ko.observable(moment().format("YYYY-MM-DD"));
+    $($("#rangeDaily").children("input").get(0)).datepicker("setDate", this.start());
+    $($("#rangeDaily").children("input").get(1)).datepicker("setDate", this.end());
     this.dailys = ko.observableArray();
     this.count = ko.computed(function () {
         return self.dailys().length;
@@ -14,8 +22,8 @@ function DailyViewModel() {
     this.getDailys = function () {
         sendAjaxRequest("GET", "/api/Dailys",
             {
-                start: self.startDate(),
-                end: self.endDate()
+                start: self.start(),
+                end: self.end()
             },
             function (err, res) {
                 if(err){

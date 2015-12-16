@@ -1,4 +1,5 @@
-﻿/// <reference path="../util.js" />
+﻿/// <reference path="../bootstrap-datepicker.min.js" />
+/// <reference path="../util.js" />
 /// <reference path="../knockout-3.3.0.js" />
 /// <reference path="../moment.min.js" />
 /// <reference path="addOrUpdateManifestViewModel.js" />
@@ -8,8 +9,16 @@
 function ManifestViewModel() {
     var self = this;
     var currentManifest = null;
-    this.beginDate = ko.observable(moment().add(-1, "months").format("YYYY-MM-DD"));
-    this.endDate = ko.observable(moment().format("YYYY-MM-DD"));
+    $("#rangeManifest input").datepicker({
+        format: "yyyy-mm-dd",
+        weekStart: 1,
+        language: "zh-CN",
+        autoclose: true
+    });
+    this.start = ko.observable(moment().add(-1, "months").format("YYYY-MM-DD"));
+    this.end = ko.observable(moment().format("YYYY-MM-DD"));
+    $($("#rangeManifest").children("input").get(0)).datepicker("setDate", this.start());
+    $($("#rangeManifest").children("input").get(1)).datepicker("setDate", this.end());
     this.manifests = ko.observableArray();
     this.count = ko.computed(function () {
         return self.manifests().length;
@@ -21,8 +30,8 @@ function ManifestViewModel() {
     this.getManifest = function () {
         sendAjaxRequest("GET", "/api/Manifests",
             {
-                begin: this.beginDate(),
-                end: this.endDate()
+                begin: this.start(),
+                end: this.end()
             },
             function (err, res) {
                 if (err) {

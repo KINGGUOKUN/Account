@@ -4,8 +4,16 @@
 
 function MonthlyViewModel() {
     var self = this;
+    $("#rangeMonthly input").datepicker({
+        format: "yyyy-mm",
+        minViewMode: 1,
+        language: "zh-CN",
+        autoclose: true
+    });
     this.start = ko.observable(moment().add(-12, "months").format("YYYY-MM"));
     this.end = ko.observable(moment().format("YYYY-MM"));
+    $($("#rangeMonthly").children("input").get(0)).datepicker("setDate", this.start());
+    $($("#rangeMonthly").children("input").get(1)).datepicker("setDate", this.end());
     this.monthlys = ko.observableArray();
     this.count = ko.pureComputed(function () {
         return self.monthlys().length;
