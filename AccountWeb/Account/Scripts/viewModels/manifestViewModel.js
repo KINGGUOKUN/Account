@@ -17,8 +17,8 @@ function ManifestViewModel() {
     });
     this.start = ko.observable(moment().add(-1, "months").format("YYYY-MM-DD"));
     this.end = ko.observable(moment().format("YYYY-MM-DD"));
-    $($("#rangeManifest").children("input").get(0)).datepicker("setDate", this.start());
-    $($("#rangeManifest").children("input").get(1)).datepicker("setDate", this.end());
+    $("#rangeManifest input:first").datepicker("setDate", this.start());
+    $("#rangeManifest input:last").datepicker("setDate", this.end());
     this.manifests = ko.observableArray();
     this.count = ko.computed(function () {
         return self.manifests().length;

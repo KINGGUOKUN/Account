@@ -13,8 +13,8 @@ function DailyViewModel() {
     });
     this.start = ko.observable(moment().add(-1, "months").format("YYYY-MM-DD"));
     this.end = ko.observable(moment().format("YYYY-MM-DD"));
-    $($("#rangeDaily").children("input").get(0)).datepicker("setDate", this.start());
-    $($("#rangeDaily").children("input").get(1)).datepicker("setDate", this.end());
+    $("#rangeDaily input:first").datepicker("setDate", this.start());
+    $("#rangeDaily input:last").datepicker("setDate", this.end());
     this.dailys = ko.observableArray();
     this.count = ko.computed(function () {
         return self.dailys().length;
