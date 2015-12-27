@@ -1,6 +1,7 @@
 ﻿/// <reference path="../bootstrap-datepicker.min.js" />
 /// <reference path="../util.js" />
 /// <reference path="../knockout-3.3.0.js" />
+/// <reference path="../knockout.validation.min.js" />
 /// <reference path="../moment.min.js" />
 /// <reference path="addOrUpdateManifestViewModel.js" />
 /// <reference path="../jquery-1.9.1.min.js" />
@@ -23,9 +24,27 @@ function ManifestViewModel() {
     this.count = ko.computed(function () {
         return self.manifests().length;
     });
-    this.date = ko.observable();
-    this.cost = ko.observable();
-    this.remark = ko.observable();
+    this.date = ko.observable().extend({
+        required: {
+            params: true,
+            message: "请输入消费日期"
+        },
+        date: {
+            params: true,
+            message: "消费日期有无"
+        }
+    });
+    this.cost = ko.observable().extend({
+        required: {
+            params: true,
+            message: "请输入消费金额"
+        },
+        pattern: {
+            message: "请输入正确消费明细",
+            params: "^[0-9]+(.[0-9]{1,2})?$"
+        }
+    });
+    this.remark = ko.observable().extend({ required: { message: "请输入消费明细" } });
     this.operateTitle = ko.observable();
     this.getManifest = function () {
         sendAjaxRequest("GET", "/api/Manifests",
@@ -38,7 +57,7 @@ function ManifestViewModel() {
                     return alert("获取消费明细失败：" + err);
                 }
                 self.manifests(res);
-                if(!res || res.length === 0){
+                if (!res || res.length === 0) {
                     alert("未查询到消费明细");
                 }
             });
@@ -46,6 +65,7 @@ function ManifestViewModel() {
     $("#modalManifest").on("hidden.bs.modal", function () {
         self.date(null).cost(null).remark(null);
         self.currentManifest = null;
+        self.errors.showAllMessages(false);
     });
     this.addManifest = function () {
         self.operateTitle("添加消费明细");
@@ -53,6 +73,10 @@ function ManifestViewModel() {
         $("#modalManifest").modal("show");
     };
     this.saveManifest = function () {
+        if (this.errors().length > 0) {
+            this.errors.showAllMessages();
+            return alert("存在错误");
+        }
         var id = self.currentManifest ? self.currentManifest.ID : Guid.NewGuid().ToString();
         var data = {
             ID: id,
@@ -81,7 +105,7 @@ function ManifestViewModel() {
         else {
             sendAjaxRequest("PUT", "/api/Manifests", data,
                 function (err, res) {
-                    if(err){
+                    if (err) {
                         alert("更新失败" + err);
                     }
                     else {

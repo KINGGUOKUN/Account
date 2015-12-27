@@ -1,4 +1,5 @@
 ﻿/// <reference path="knockout-3.3.0.js" />
+/// <reference path="knockout.validation.min.js" />
 /// <reference path="viewModels/manifestViewModel.js" />
 /// <reference path="viewModels/dailyViewModel.js" />
 /// <reference path="viewModels/monthlyViewModel.js" />
@@ -18,6 +19,14 @@ $(function () {
             case "manifest":
                 if(manifestViewModel == null){
                     manifestViewModel = new ManifestViewModel();
+                    //ko.validation.configure({
+                    //    registerExtenders: true,
+                    //    messagesOnModified: true,
+                    //    insertMessages: true,
+                    //    parseInputAttributes: true,
+                    //    messageTemplate: null
+                    //});
+                    manifestViewModel.errors = ko.validation.group(manifestViewModel);
                     ko.applyBindings(manifestViewModel, document.getElementById("manifests"));
                 }
             case "daily":

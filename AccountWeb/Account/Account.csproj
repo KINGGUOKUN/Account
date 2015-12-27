@@ -186,6 +186,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\util.js" />
     <Content Include="Scripts\viewModels\dailyViewModel.js" />
+    <Content Include="Scripts\knockout.validation.min.js" />
     <Content Include="Scripts\viewModels\manifestViewModel.js" />
     <Content Include="Scripts\viewModels\monthlyViewModel.js" />
     <Content Include="Scripts\viewModels\yearlyViewModel.js" />
