@@ -20,7 +20,8 @@ function ManifestViewModel() {
         format: "yyyy-mm-dd",
         weekStart: 1,
         language: "zh-CN",
-        autoclose: true
+        autoclose: true,
+        forceParse: false
     });
     this.start = ko.observable(moment().add(-1, "months").format("YYYY-MM-DD"));
     this.end = ko.observable(moment().format("YYYY-MM-DD"));
@@ -38,7 +39,7 @@ function ManifestViewModel() {
         },
         date: {
             params: true,
-            message: "消费日期有无"
+            message: "消费日期有误"
         }
     });
     this.cost = ko.observable().extend({
