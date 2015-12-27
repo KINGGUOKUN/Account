@@ -16,10 +16,17 @@ function ManifestViewModel() {
         language: "zh-CN",
         autoclose: true
     });
+    $("#dpCostDate input").datepicker({
+        format: "yyyy-mm-dd",
+        weekStart: 1,
+        language: "zh-CN",
+        autoclose: true
+    });
     this.start = ko.observable(moment().add(-1, "months").format("YYYY-MM-DD"));
     this.end = ko.observable(moment().format("YYYY-MM-DD"));
     $("#rangeManifest input:first").datepicker("setDate", this.start());
     $("#rangeManifest input:last").datepicker("setDate", this.end());
+    $("#dpCostDate input").datepicker("setDate", moment().format("YYYY-MM-DD"));
     this.manifests = ko.observableArray();
     this.count = ko.computed(function () {
         return self.manifests().length;
