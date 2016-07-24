@@ -199,6 +199,9 @@
     <Compile Include="Controllers\ManifestsController.cs" />
     <Compile Include="Controllers\MonthlyController.cs" />
     <Compile Include="Controllers\YearlyController.cs" />
+    <Compile Include="Filters\AuthenticationFailureResult.cs" />
+    <Compile Include="Filters\CustomAuthenticationFilter.cs" />
+    <Compile Include="Filters\CustomExceptionFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -222,6 +225,10 @@
     <ProjectReference Include="..\Account.BLL\Account.BLL.csproj">
       <Project>{844fe35b-31f7-41a7-a2bf-32b3d23429b0}</Project>
       <Name>Account.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Account.Common\Account.Common.csproj">
+      <Project>{38A6AB79-8996-40AF-B67A-62920117180B}</Project>
+      <Name>Account.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Account.Entity\Account.Entity.csproj">
       <Project>{08166cbc-76bf-43fd-ad94-6cce837ef4b5}</Project>

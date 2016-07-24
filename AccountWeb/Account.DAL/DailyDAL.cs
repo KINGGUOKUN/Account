@@ -1,10 +1,8 @@
-﻿using Account.Entity;
+﻿using Account.Common;
+using Account.Entity;
 using DapperExtensions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Account.DAL
 {
@@ -12,7 +10,7 @@ namespace Account.DAL
     {
         #region Private Fields
 
-        private readonly IDatabase _database = DatabaseFactory.Instance.CreateDatabase();
+        private readonly IDatabase _database = DatabaseFactory.CreateDatabase();
 
         #endregion
 

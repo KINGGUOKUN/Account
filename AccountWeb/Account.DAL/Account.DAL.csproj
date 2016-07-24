@@ -34,6 +34,10 @@
       <HintPath>..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DapperExtensions, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DapperExtensions.1.4.4\lib\net40\DapperExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -46,8 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DailyDAL.cs" />
-    <Compile Include="DatabaseExtensions.cs" />
-    <Compile Include="DatabaseFactory.cs" />
     <Compile Include="ManifestDAL.cs" />
     <Compile Include="MonthlyDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,13 +61,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Account.Common\Account.Common.csproj">
+      <Project>{38A6AB79-8996-40AF-B67A-62920117180B}</Project>
+      <Name>Account.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Account.Entity\Account.Entity.csproj">
       <Project>{08166cbc-76bf-43fd-ad94-6cce837ef4b5}</Project>
       <Name>Account.Entity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DapperExtensions\DapperExtensions.csproj">
-      <Project>{4c1a2c6c-a469-4c87-98d1-f1d517fa1acf}</Project>
-      <Name>DapperExtensions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

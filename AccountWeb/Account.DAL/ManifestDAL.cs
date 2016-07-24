@@ -1,4 +1,5 @@
-﻿using Account.Entity;
+﻿using Account.Common;
+using Account.Entity;
 using DapperExtensions;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace Account.DAL
 
         public ManifestDAL()
         {
-            _database = DatabaseFactory.Instance.CreateDatabase();
+            _database = DatabaseFactory.CreateDatabase();
         }
 
         #endregion
