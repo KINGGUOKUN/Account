@@ -53,3 +53,4 @@ packages/
 
 *.suo
 Account/Account.v12.suo
+/AccountWeb/VueFE/VueFE.csproj.user

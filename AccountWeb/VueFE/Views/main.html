@@ -43,8 +43,8 @@
                 <el-date-picker v-model="start" type="date" placeholder="选择日期"></el-date-picker>
                 结束日期：
                 <el-date-picker v-model="end" type="date" placeholder="选择日期"></el-date-picker>
-                <el-button type="primary" v-on:click="fetchData">查  询</el-button>
-                <el-button type="primary" v-on:click="add">添  加</el-button>
+                <el-button type="primary" size="small" v-on:click="fetchData">查  询</el-button>
+                <el-button type="primary" size="small" v-on:click="add">添  加</el-button>
             </div>
             <div>
                 <el-table v-bind:data="manifests" highlight-current-row border>
