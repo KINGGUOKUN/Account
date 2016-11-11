@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="../CSS/index.css" rel="stylesheet" />
+    <link href="../CSS/main.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <h1>账户管理系统</h1>
+    </header>
+    <div id="main">
+        <div id="sideBar">
+            <!--<ul>
+                <router-link to="/manifests" tag="li">日消费明细</router-link>
+                <router-link to="/daily" tag="li">日消费清单</router-link>
+                <router-link to="/monthly" tag="li">月消费明细</router-link>
+                <router-link to="/yearly" tag="li">年消费明细</router-link>
+            </ul>-->
+            <el-menu default-active="manifests" theme="dark" v-bind:router="true">
+                <el-menu-item index="manifests">日消费明细</el-menu-item>
+                <el-menu-item index="daily">日消费清单</el-menu-item>
+                <el-menu-item index="monthly">月消费明细</el-menu-item>
+                <el-menu-item index="yearly">年消费明细</el-menu-item>
+            </el-menu>
+        </div>
+        <div id="content">
+            <transition>
+                <keep-alive>
+                    <router-view></router-view>
+                </keep-alive>
+            </transition>
+        </div>
+    </div>
+    <footer>
+        <h1>Copyright@GuoKun</h1>
+    </footer>
+    <script type="text/x-template" id="manifests">
+        <div>
+            <div>
+                开始日期：
+                <el-date-picker v-model="start" type="date" placeholder="选择日期"></el-date-picker>
+                结束日期：
+                <el-date-picker v-model="end" type="date" placeholder="选择日期"></el-date-picker>
+                <el-button type="primary" v-on:click="fetchData">查  询</el-button>
+                <el-button type="primary" v-on:click="add">添  加</el-button>
+            </div>
+            <div>
+                <el-table v-bind:data="manifests" highlight-current-row border>
+                    <el-table-column prop="Date" label="日期"></el-table-column>
+                    <el-table-column prop="Cost" label="金额"></el-table-column>
+                    <el-table-column prop="Remark" label="备注"></el-table-column>
+                </el-table>
+            </div>
+            <div>
+                <el-dialog v-bind:title="title" v-model="showOperateManifest">
+                    <el-form v-bind:form="manifest" label-position="left" label-width="80px">
+                        <el-form-item label="日  期">
+                            <el-date-picker v-model="manifest.Date"></el-date-picker>
+                        </el-form-item>
+                        <el-form-item label="金  额">
+                            <el-input v-model="manifest.Cost"></el-input>
+                        </el-form-item>
+                        <el-form-item label="备  注">
+                            <el-input v-model="manifest.Remark"></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" v-on:click="save">确 定</el-button>
+                            <el-button type="primary" v-on:click="cancel">取 消</el-button>
+                        </el-form-item>
+                    </el-form>
+                </el-dialog>
+            </div>
+        </div>
+    </script>
+    <script type="text/x-template" id="daily">
+        <div>
+            <div>
+                开始日期：
+                <el-date-picker v-model="start" type="date" placeholder="选择日期"></el-date-picker>
+                结束日期：
+                <el-date-picker v-model="end" type="date" placeholder="选择日期"></el-date-picker>
+                <el-button type="primary" v-on:click="fetchData">查  询</el-button>
+            </div>
+            <div>
+                <el-table v-bind:data="dailys" highlight-current-row border>
+                    <el-table-column prop="Date" label="日期"></el-table-column>
+                    <el-table-column prop="Cost" label="金额"></el-table-column>
+                </el-table>
+            </div>
+        </div>
+    </script>
+    <script type="text/x-template" id="monthly">
+        <div>
+            <div>
+                开始月份：
+                <el-date-picker v-model="start" type="month" placeholder="选择月份"></el-date-picker>
+                结束月份：
+                <el-date-picker v-model="end" type="month" placeholder="选择月份"></el-date-picker>
+                <el-button type="primary" v-on:click="fetchData">查  询</el-button>
+            </div>
+            <div>
+                <el-table v-bind:data="monthly" highlight-current-row border>
+                    <el-table-column prop="Month" label="月份"></el-table-column>
+                    <el-table-column prop="Cost" label="金额"></el-table-column>
+                </el-table>
+            </div>
+        </div>
+    </script>
+    <script type="text/x-template" id="yearly">
+        <div>
+            <div>
+                开始年份：
+                <el-date-picker v-model="start" type="year" placeholder="选择年份"></el-date-picker>
+                结束年份：
+                <el-date-picker v-model="end" type="year" placeholder="选择年份"></el-date-picker>
+                <el-button type="primary" v-on:click="fetchData">查  询</el-button>
+            </div>
+            <div>
+                <el-table v-bind:data="yearly" highlight-current-row border>
+                    <el-table-column prop="Year" label="年份"></el-table-column>
+                    <el-table-column prop="Cost" label="金额"></el-table-column>
+                </el-table>
+            </div>
+        </div>
+    </script>
+    <script src="../Scripts/vue.js"></script>
+    <script src="../Scripts/index.js"></script>
+    <script src="../Scripts/vue-router.js"></script>
+    <script src="../Scripts/vue-resource.js"></script>
+    <script src="../Scripts/util.js"></script>
+    <script src="../Scripts/manifests.js"></script>
+    <script src="../Scripts/daily.js"></script>
+    <script src="../Scripts/monthly.js"></script>
+    <script src="../Scripts/yearly.js"></script>
+    <script src="../Scripts/main.js"></script>
+</body>
+</html>

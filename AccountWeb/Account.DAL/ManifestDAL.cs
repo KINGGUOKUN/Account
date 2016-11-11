@@ -34,11 +34,11 @@ namespace Account.DAL
         /// <param name="begin"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public IEnumerable<Manifest> GetManifest(DateTime begin, DateTime end)
+        public IEnumerable<Manifest> GetManifest(DateTime start, DateTime end)
         {
             IPredicate[] predicates = new IPredicate[]
             {
-                Predicates.Field<Manifest>(x => x.Date, Operator.Ge, begin),
+                Predicates.Field<Manifest>(x => x.Date, Operator.Ge, start),
                 Predicates.Field<Manifest>(x => x.Date, Operator.Le, end)
             };
             IList<ISort> sorts = new List<ISort>()

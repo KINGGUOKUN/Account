@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="../Content/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="../Content/main.css" rel="stylesheet" />  
+</head>
+<body>
+    <div class="container"> 
+        <div class="row text-center">
+            <h1>账务管理系统</h1>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <ul class="nav nav-tabs nav-stacked pull-left">
+                    <li><a name="manifest" href="#manifests" data-toggle="tab">日消费明细</a></li>
+                    <li><a name="daily" href="#daily" data-toggle="tab">日消费清单</a></li>
+                    <li><a name="monthly" href="#monthly" data-toggle="tab">月消费清单</a></li>
+                    <li><a name="yearly" href="#yearly" data-toggle="tab">年消费清单</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-9">
+                <div id="main" class="tab-content">
+                    <div id="manifests" class="tab-pane fade">
+                        <div class="panel-heading">日消费明细</div>
+                        <div class="panel-body pre-scrollable">
+                            <div id="rangeManifest" class="input-group input-daterange">
+                                <input type="text" class="form-control" data-bind="value:start" />
+                                <span class="input-group-addon">  至  </span>
+                                <input type="text" class="form-control" data-bind="value:end" />
+                            </div>
+                            <table class="table table-striped table-condensed table-bordered table-responsive table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>消费日期</th>
+                                        <th>消费金额</th>
+                                        <th>备注</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach:manifests">
+                                    <tr>
+                                        <td data-bind="text:$index() + 1"></td>
+                                        <td data-bind="text:moment(Date).format('YYYY-MM-DD')"></td>
+                                        <td data-bind="text:Cost"></td>
+                                        <td data-bind="text:Remark"></td>
+                                        <td>
+                                            <button class="btn btn-xs btn-primary" data-bind="click: $parent.editManifest">编辑</button>
+                                            <button class="btn btn-xs btn-primary" data-bind="click:$parent.deleteManfest">删除</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="modal fade" id="modalManifest" role="dialog"
+                                 aria-labelledby="manifestDialogLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                &times;
+                                            </button>
+                                            <h4 class="modal-title" id="manifestDialogLabel">
+                                                <span data-bind="text:operateTitle"></span>
+                                            </h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="form-horizontal" role="form">
+                                                <div class="form-group">
+                                                    <label for="dpDate" class="col-sm-3 control-label">日期</label>
+                                                    <div id="dpCostDate" class="col-sm-9">
+                                                        <input class="form-control" type="date" data-bind="value:date" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cost" class="col-sm-3 control-label">开销</label>
+                                                    <div class="col-sm-9">
+                                                        <input id="cost" class="form-control" type="number" data-bind="textInput:cost" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="remark" class="col-sm-3 control-label">备注</label>
+                                                    <div class="col-sm-9">
+                                                        <input id="remark" class="form-control" type="text" data-bind="textInput:remark" />
+                                                    </div>
+                                                </div>
+                                                <div></div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-bind="click:saveManifest">确定</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <!--<button class="btn btn-default" data-toggle="modal" data-target="#modalManifest">添加</button>-->
+                            <button class="btn btn-default" data-bind="click:addManifest">添加</button>
+                            <button class="btn btn-default" data-bind="click:getManifest">刷新</button>
+                            <div class="pull-right">
+                                共<span data-bind="text:count"></span>条
+                            </div>
+                        </div>    
+                    </div>
+                    <div id="daily" class="tab-pane fade">
+                        <div class="panel-heading">日消费清单</div>
+                        <div class="panel-body pre-scrollable">
+                            <div id="rangeDaily" class="input-group input-daterange">
+                                <input type="text" class="form-control" data-bind="value:start" />
+                                <span class="input-group-addon">  至  </span>
+                                <input type="text" class="form-control" data-bind="value:end" />
+                            </div>
+                            <table class="table table-striped table-condensed table-bordered table-responsive table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>日期</th>
+                                        <th>花销</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach:dailys">
+                                    <tr>
+                                        <td data-bind="text:$index() + 1"></td>
+                                        <td data-bind="text:moment(Date).format('YYYY-MM-DD')"></td>
+                                        <td data-bind="text:Cost"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="panel-footer">
+                            <button class="btn btn-default" data-bind="click:getDailys">刷新</button>
+                            <div class="pull-right">
+                                共<span data-bind="text:count"></span>条
+                            </div>
+                        </div>
+                    </div>
+                    <div id="monthly" class="tab-pane fade">
+                        <div class="panel-heading">月消费清单</div>
+                        <div class="panel-body pre-scrollable">
+                            <div id="rangeMonthly" class="input-group input-daterange">
+                                <input type="text" class="form-control" data-bind="value:start" />
+                                <span class="input-group-addon">  至  </span>
+                                <input type="text" class="form-control" data-bind="value:end" />
+                            </div>
+                            <table class="table table-striped table-condensed table-bordered table-responsive table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>月份</th>
+                                        <th>花销</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach:monthlys">
+                                    <tr>
+                                        <td data-bind="text:$index() + 1"></td>
+                                        <td data-bind="text:Month"></td>
+                                        <td data-bind="text:Cost"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="panel-footer">
+                            <button class="btn btn-default" data-bind="click:getMonthlys">刷新</button>
+                            <div class="pull-right">
+                                共<span data-bind="text:count"></span>条
+                            </div>
+                        </div>
+                    </div>
+                    <div id="yearly" class="tab-pane fade">
+                        <div class="panel-heading">年消费清单</div>
+                        <div class="panel-body pre-scrollable">
+                            <div id="rangeYearly" class="input-group input-daterange">
+                                <input type="text" class="form-control" data-bind="value:start" />
+                                <span class="input-group-addon">  至  </span>
+                                <input type="text" class="form-control" data-bind="value:end" />
+                            </div>
+                            <table class="table table-striped table-condensed table-bordered table-responsive table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>年份</th>
+                                        <th>花销</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach:yearlys">
+                                    <tr>
+                                        <td data-bind="text:$index() + 1"></td>
+                                        <td data-bind="text:Year"></td>
+                                        <td data-bind="text:Cost"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="panel-footer">
+                            <button class="btn btn-default" data-bind="click:getYearlys">刷新</button>
+                            <div class="pull-right">
+                                共<span data-bind="text:count"></span>条
+                            </div>
+                        </div>
+                    </div>                
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../Scripts/jquery-1.9.1.min.js"></script>
+    <script src="../Scripts/moment.min.js"></script>
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/bootstrap-datepicker.min.js"></script>
+    <script src="../Scripts/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script src="../Scripts/knockout-3.4.0.js"></script>
+    <script src="../Scripts/knockout.validation.min.js"></script>
+    <script src="../Scripts/util.js"></script>
+    <script src="../Scripts/main.js"></script>
+    <script src="../Scripts/viewModels/manifestViewModel.js"></script>
+    <script src="../Scripts/viewModels/dailyViewModel.js"></script>
+    <script src="../Scripts/viewModels/monthlyViewModel.js"></script>
+    <script src="../Scripts/viewModels/yearlyViewModel.js"></script>
+</body>
+</html>
