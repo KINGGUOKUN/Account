@@ -22,7 +22,7 @@ namespace Account.Filters
             else        //未处理异常如数据库访问出错、代码层面异常等，返回错误信息并记录日志
             {
                 actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(HttpStatusCode.InternalServerError, new HttpError(exception.Message));
-                //Log.Logger.Error("应用程序处理出错：", exception);
+                Log.Logger.Error("应用程序处理出错：", exception);
             }
         }
     }
