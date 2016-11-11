@@ -32,9 +32,9 @@ namespace Account.BLL
         /// <param name="begin"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        public IEnumerable<Manifest> GetManifest(DateTime begin, DateTime end)
+        public IEnumerable<Manifest> GetManifest(DateTime start, DateTime end)
         {
-            return _dal.GetManifest(begin, end);
+            return _dal.GetManifest(start, end);
         }
 
         /// <summary>

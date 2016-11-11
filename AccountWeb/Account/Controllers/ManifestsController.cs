@@ -22,9 +22,9 @@ namespace Account.Controllers
         #endregion
 
         [Route("")]
-        public IEnumerable<Manifest> GetManifest(DateTime begin, DateTime end)
+        public IEnumerable<Manifest> GetManifest(DateTime start, DateTime end)
         {
-            return _bll.GetManifest(begin, end);
+            return _bll.GetManifest(start, end);
         }
 
         /// <summary>
