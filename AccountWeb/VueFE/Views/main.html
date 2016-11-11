@@ -44,6 +44,7 @@
                 结束日期：
                 <el-date-picker v-model="end" type="date" placeholder="选择日期"></el-date-picker>
                 <el-button type="primary" v-on:click="fetchData">查  询</el-button>
+                <el-button type="primary" v-on:click="add">添  加</el-button>
             </div>
             <div>
                 <el-table v-bind:data="manifests" highlight-current-row border>
@@ -51,6 +52,25 @@
                     <el-table-column prop="Cost" label="金额"></el-table-column>
                     <el-table-column prop="Remark" label="备注"></el-table-column>
                 </el-table>
+            </div>
+            <div>
+                <el-dialog v-bind:title="title" v-model="showOperateManifest">
+                    <el-form v-bind:form="manifest" label-position="left" label-width="80px">
+                        <el-form-item label="日  期">
+                            <el-date-picker v-model="manifest.Date"></el-date-picker>
+                        </el-form-item>
+                        <el-form-item label="金  额">
+                            <el-input v-model="manifest.Cost"></el-input>
+                        </el-form-item>
+                        <el-form-item label="备  注">
+                            <el-input v-model="manifest.Remark"></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" v-on:click="save">确 定</el-button>
+                            <el-button type="primary" v-on:click="cancel">取 消</el-button>
+                        </el-form-item>
+                    </el-form>
+                </el-dialog>
             </div>
         </div>
     </script>
