@@ -24,7 +24,7 @@ const Yearly = {
                 }
             })
                 .then(response => this.yearly = response.body)
-                .catch(err => console.log(err.body.Message));
+                .catch(response => this.$alert(response.body.Message, "年消费清单", {type:"error"}));
         }
     }
 }

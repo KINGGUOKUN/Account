@@ -24,7 +24,7 @@ const Daily = {
                 }
             })
                 .then(response => this.dailys = response.body)
-                .catch(err => console.log(err.body.Message));
+                .catch(response => this.$alert(response.body.Message, "日消费清单", {type:"error"}));
         }
     }
 }

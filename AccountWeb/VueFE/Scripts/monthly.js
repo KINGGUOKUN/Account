@@ -24,7 +24,7 @@ const Monthly = {
                 }
             })
                 .then(response => this.monthly = response.body)
-                .catch(err => console.log(err.body.Message));
+                .catch(response => this.$alert(response.body.Message, "月消费清单", {type:"error"}));
         }
     }
 }

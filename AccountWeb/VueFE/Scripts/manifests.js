@@ -25,7 +25,7 @@ const Manifests = {
                 }
             })
                       .then(response => this.manifests = response.body)
-                      .catch(err => console.log(err.body.Message));
+                      .catch(response => this.$alert(response.body.Message, "日消费明细", {type:"error"}));
         }
     }
 }
