@@ -27,7 +27,7 @@ namespace Account.DAL
             IPredicate[] predicates = new IPredicate[]
             {
                 Predicates.Field<Daily>(x => x.Date, Operator.Ge, start),
-                Predicates.Field<Daily>(x => x.Date, Operator.Le, end)
+                Predicates.Field<Daily>(x => x.Date, Operator.Lt, new DateTime(end.Year, end.Month, end.Day).AddDays(1))
             };
             IList<ISort> sorts = new List<ISort>()
             {

@@ -7,9 +7,9 @@ const Daily = {
         this.fetchData();
     },
     data: function () {
-        let curentDate = new Date();
+        let currentDate = new Date();
         return {
-            start: new Date(curentDate.getFullYear() - 3, 0, 1),
+            start: new Date(currentDate.getFullYear(), currentDate.getMonth() - 3, 1),
             end: new Date(),
             dailys: []
         }
@@ -24,7 +24,7 @@ const Daily = {
                 }
             })
                 .then(response => this.dailys = response.body)
-                .catch(response => this.$alert(response.body.Message, "日消费清单", {type:"error"}));
+                .catch(response => this.$alert(response.body.Message, "日消费清单", { type: "error" }));
         }
     }
 }

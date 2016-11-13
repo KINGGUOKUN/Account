@@ -44,10 +44,12 @@ const Manifests = {
             this.showOperateManifest = true;
         },
         save: function () {
+            var currentManifest = JSON.parse(JSON.stringify(this.manifest));
+            currentManifest.Date = this.manifest.Date.format("yyyy-MM-dd");
             if (this.isAdd) {
-                this.$http.post("http://localhost:1500/api/Manifests", this.manifest)
+                this.$http.post("http://localhost:1500/api/Manifests", currentManifest)
                 .then(() => {
-                    this.manifests.push(JSON.parse(JSON.stringify(this.manifest)));
+                    this.manifests.push(currentManifest);
                     this.showOperateManifest = false;
                     this.$message({
                         message: "添加成功",
@@ -57,19 +59,22 @@ const Manifests = {
                 .catch(err => this.$alert(err.body.Message, "添加日消费明细", { type: "error" }));
             }
             else {
-                this.$http.put("http://localhost:1500/api/Manifests", this.manifest)
+                this.$http.put("http://localhost:1500/api/Manifests", currentManifest)
                 .then(response => {
-                    let currentManifest = this.manifests.find(x => x.ID == this.manifest.ID);
-                    currentManifest.Date = this.manifest.Date.format("yyyy-MM-dd");
-                    currentManifest.Cost = this.manifest.Cost;
-                    currentManifest.Remark = this.manifest.Remark;
+                    let updatedManifest = this.manifests.find(x => x.ID == this.manifest.ID);
+                    updatedManifest.Date = currentManifest.Date;
+                    updatedManifest.Cost = currentManifest.Cost;
+                    updatedManifest.Remark = currentManifest.Remark;
                     this.showOperateManifest = false;
                     this.$message({
                         message: "修改成功",
                         type: "success"
                     });
                 })
-                .catch(err => this.$alert(err.body.Message, "修改消费明细", { type: "error" }));
+                .catch(err => {
+                    console.log(err);
+                    //this.$alert(err.body.Message, "修改消费明细", { type: "error" });
+                });
             }
         },
         cancel: function () {
@@ -83,10 +88,9 @@ const Manifests = {
             this.showOperateManifest = true;
         },
         del: function (ID) {
-            this.manifest = this.manifests.find(x => x.ID == ID);
-            this.$http.delete("http://localhost:1500/api/Manifests/" + this.manifest.ID)
+            this.$http.delete("http://localhost:1500/api/Manifests/" + ID)
             .then(response => {
-                let index = this.manifests.indexOf(this.manifest);
+                let index = this.manifests.findIndex(x => x.ID == ID);
                 this.manifests.splice(index, 1);
                 this.$message({
                     message: "删除成功",
