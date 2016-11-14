@@ -15,6 +15,9 @@ bus = new Vue();
 window.onload = function () {
     VM = new Vue({
         el: "#main",
-        router: router
+        router: router,
+        created: function () {
+            router.push("manifests");
+        }
     });
 }
