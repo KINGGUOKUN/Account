@@ -5,6 +5,7 @@ const Monthly = {
     template: "#monthly",
     created: function () {
         this.fetchData();
+        bus.$on("manifestChanged", () => this.fetchData());
     },
     data: function () {
         let currentDate = new Date();
@@ -24,7 +25,7 @@ const Monthly = {
                 }
             })
                 .then(response => this.monthly = response.body)
-                .catch(response => this.$alert(response.body.Message, "月消费清单", {type:"error"}));
+                .catch(response => this.$alert(response.body.Message, "月消费清单", { type: "error" }));
         }
     }
 }

@@ -51,12 +51,16 @@ const Manifests = {
                 .then(() => {
                     this.manifests.push(currentManifest);
                     this.showOperateManifest = false;
+                    bus.$emit("manifestChanged");
                     this.$message({
                         message: "添加成功",
                         type: "success"
                     });
                 })
-                .catch(err => this.$alert(err.body.Message, "添加日消费明细", { type: "error" }));
+                .catch(err => {
+                    console.log(err);
+                    //this.$alert(err.body.Message, "添加日消费明细", { type: "error" });
+                });
             }
             else {
                 this.$http.put("http://localhost:1500/api/Manifests", currentManifest)
@@ -66,6 +70,7 @@ const Manifests = {
                     updatedManifest.Cost = currentManifest.Cost;
                     updatedManifest.Remark = currentManifest.Remark;
                     this.showOperateManifest = false;
+                    bus.$emit("manifestChanged");
                     this.$message({
                         message: "修改成功",
                         type: "success"
@@ -92,14 +97,15 @@ const Manifests = {
             .then(response => {
                 let index = this.manifests.findIndex(x => x.ID == ID);
                 this.manifests.splice(index, 1);
+                bus.$emit("manifestChanged");
                 this.$message({
                     message: "删除成功",
                     type: "success"
                 });
             })
             .catch(err => {
-                this.$alert(err.body.Message, "删除消费明细", { type: "error" });
-                //console.log(err);
+                //this.$alert(err.body.Message, "删除消费明细", { type: "error" });
+                console.log(err);
             });
         }
     }

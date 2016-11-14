@@ -5,6 +5,7 @@ const Daily = {
     template: "#daily",
     created: function () {
         this.fetchData();
+        bus.$on("manifestChanged", () => this.fetchData());
     },
     data: function () {
         let currentDate = new Date();

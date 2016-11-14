@@ -5,6 +5,7 @@ const Yearly = {
     template: "#yearly",
     created: function () {
         this.fetchData();
+        bus.$on("manifestChanged", () => this.fetchData());
     },
     data: function () {
         let currentYear = new Date().getFullYear();
@@ -24,7 +25,7 @@ const Yearly = {
                 }
             })
                 .then(response => this.yearly = response.body)
-                .catch(response => this.$alert(response.body.Message, "年消费清单", {type:"error"}));
+                .catch(response => this.$alert(response.body.Message, "年消费清单", { type: "error" }));
         }
     }
 }

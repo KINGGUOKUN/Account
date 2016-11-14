@@ -11,6 +11,7 @@ const router = new VueRouter({
     ]
 });
 
+bus = new Vue();
 window.onload = function () {
     VM = new Vue({
         el: "#main",
