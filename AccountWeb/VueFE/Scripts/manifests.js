@@ -44,12 +44,11 @@ const Manifests = {
             this.showOperateManifest = true;
         },
         save: function () {
-            var currentManifest = JSON.parse(JSON.stringify(this.manifest));
-            currentManifest.Date = this.manifest.Date.format("yyyy-MM-dd");
+            this.manifest.Date = this.manifest.Date.format("yyyy-MM-dd");
             if (this.isAdd) {
-                this.$http.post("http://localhost:1500/api/Manifests", currentManifest)
+                this.$http.post("http://localhost:1500/api/Manifests", this.manifest)
                 .then(() => {
-                    this.manifests.push(currentManifest);
+                    this.manifests.push(this.manifest);
                     this.showOperateManifest = false;
                     bus.$emit("manifestChanged");
                     this.$message({
@@ -58,17 +57,17 @@ const Manifests = {
                     });
                 })
                 .catch(err => {
-                    console.log(err);
-                    //this.$alert(err.body.Message, "添加日消费明细", { type: "error" });
+                    //console.log(err);
+                    this.$alert(err.body.Message, "添加日消费明细", { type: "error" });
                 });
             }
             else {
-                this.$http.put("http://localhost:1500/api/Manifests", currentManifest)
+                this.$http.put("http://localhost:1500/api/Manifests", this.manifest)
                 .then(response => {
                     let updatedManifest = this.manifests.find(x => x.ID == this.manifest.ID);
-                    updatedManifest.Date = currentManifest.Date;
-                    updatedManifest.Cost = currentManifest.Cost;
-                    updatedManifest.Remark = currentManifest.Remark;
+                    updatedManifest.Date = this.manifest.Date;
+                    updatedManifest.Cost = this.manifest.Cost;
+                    updatedManifest.Remark = this.manifest.Remark;
                     this.showOperateManifest = false;
                     bus.$emit("manifestChanged");
                     this.$message({
@@ -77,8 +76,8 @@ const Manifests = {
                     });
                 })
                 .catch(err => {
-                    console.log(err);
-                    //this.$alert(err.body.Message, "修改消费明细", { type: "error" });
+                    //console.log(err);
+                    this.$alert(err.body.Message, "修改消费明细", { type: "error" });
                 });
             }
         },
@@ -87,7 +86,9 @@ const Manifests = {
             this.showOperateManifest = false;
         },
         edit: function (ID) {
-            this.manifest = this.manifests.find(x => x.ID == ID);
+            let currentManifest = this.manifests.find(x => x.ID == ID);
+            this.manifest = JSON.parse(JSON.stringify(currentManifest));
+            this.manifest.Date = new Date(this.manifest.Date);
             this.title = "编辑消费明细";
             this.isAdd = false;
             this.showOperateManifest = true;
