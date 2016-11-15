@@ -12,20 +12,38 @@ const Daily = {
         return {
             start: new Date(currentDate.getFullYear(), currentDate.getMonth() - 3, 1),
             end: new Date(),
-            dailys: []
+            dailys: [],
+            pageIndex: 0,
+            pageSize: 10,
+            total: 0,
+            pageSizes: [10, 20, 50, 100]
         }
     },
     methods: {
         fetchData: function () {
             this.dailys = [];
-            this.$http.get("http://localhost:1500/api/dailys", {
+            this.$http.get("http://localhost:1500/api/dailys/paged", {
                 params: {
                     start: this.start.format("yyyy-MM-dd"),
-                    end: this.end.format("yyyy-MM-dd")
+                    end: this.end.format("yyyy-MM-dd"),
+                    pageIndex: this.pageIndex,
+                    pageSize: this.pageSize
                 }
             })
-                .then(response => this.dailys = response.body)
+                .then(response => {
+                    this.total = response.body.count;
+                    this.dailys = response.body.data;
+                })
                 .catch(response => this.$alert(response.body.Message, "日消费清单", { type: "error" }));
+        },
+
+        sizeChange: function (pageSize) {
+            this.pageSize = pageSize;
+            this.fetchData();
+        },
+        pageIndexChange: function (pageIndex) {
+            this.pageIndex = pageIndex;
+            this.fetchData();
         }
     }
 }

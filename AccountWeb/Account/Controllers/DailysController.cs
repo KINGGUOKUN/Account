@@ -35,6 +35,18 @@ namespace Account.Controllers
             return _bll.GetDailys(start, end);
         }
 
+        /// <summary>
+        /// 获取日消费清单
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        [Route("paged"), HttpGet]
+        public dynamic GetDailys(DateTime start, DateTime end, int pageIndex, int pageSize)
+        {
+            return _bll.GetDailys(start, end, pageIndex, pageSize);
+        }
+
         #endregion
     }
 }
