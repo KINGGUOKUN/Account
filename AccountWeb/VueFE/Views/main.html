@@ -60,15 +60,15 @@
                 </el-table>
             </div>
             <div>
-                <el-dialog v-bind:title="title" v-bind:close-on-click-modal="false" v-model="showOperateManifest">
-                    <el-form v-bind:form="manifest" label-position="left" label-width="80px">
-                        <el-form-item label="日  期">
+                <el-dialog v-bind:title="title" v-bind:close-on-click-modal="false" v-model="showOperateManifest" v-on:close="dialogClosed">
+                    <el-form v-bind:model="manifest" v-bind:rules="rules" ref="formManifest" label-position="left" label-width="80px">
+                        <el-form-item label="日  期" prop="Date">
                             <el-date-picker v-model="manifest.Date"></el-date-picker>
                         </el-form-item>
-                        <el-form-item label="金  额">
+                        <el-form-item label="金  额" prop="Cost">
                             <el-input v-model="manifest.Cost"></el-input>
                         </el-form-item>
-                        <el-form-item label="备  注">
+                        <el-form-item label="备  注" prop="Remark">
                             <el-input v-model="manifest.Remark"></el-input>
                         </el-form-item>
                         <el-form-item>

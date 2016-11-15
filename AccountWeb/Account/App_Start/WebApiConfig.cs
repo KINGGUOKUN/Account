@@ -34,7 +34,6 @@ namespace Account
             //允许跨域
             var cors = new EnableCorsAttribute("http://localhost:1500,http://localhost:2581,http://localhost:3722", "*", "*");
             config.EnableCors(cors);
-
         }
     }
 }

@@ -10,6 +10,14 @@ const Manifests = {
     },
     data: function () {
         let currentDate = new Date();
+        let costValidator = (rule, value, callback) => {
+            if (!/^[0-9]+(.[0-9]{2})?$/.test(value)) {
+                callback(new Error("请输入合法金额"));
+            }
+            else {
+                callback();
+            }
+        };
         return {
             start: new Date(currentDate.getFullYear(), currentDate.getMonth() - 3, 1),
             end: new Date(),
@@ -17,7 +25,19 @@ const Manifests = {
             title: "",
             manifest: {},
             showOperateManifest: false,
-            isAdd: false
+            isAdd: false,
+            rules: {
+                Date: [
+                    { type: "date", required: true, message: "请选择消费日期", trigger: "change" }
+                ],
+                Cost: [
+                    { required: true, message: "请填写消费金额", trigger: "blur" },
+                    { validator: costValidator, trigger: "change" }
+                ],
+                Remark: [
+                    { required: true, message: "请填写消费明细", trigger: "blur" }
+                ]
+            }
         }
     },
     methods: {
@@ -44,42 +64,50 @@ const Manifests = {
             this.showOperateManifest = true;
         },
         save: function () {
-            this.manifest.Date = this.manifest.Date.format("yyyy-MM-dd");
-            if (this.isAdd) {
-                this.$http.post("http://localhost:1500/api/Manifests", this.manifest)
-                .then(() => {
-                    this.manifests.push(this.manifest);
-                    this.showOperateManifest = false;
-                    bus.$emit("manifestChanged");
-                    this.$message({
-                        message: "添加成功",
-                        type: "success"
-                    });
-                })
-                .catch(err => {
-                    //console.log(err);
-                    this.$alert(err.body.Message, "添加日消费明细", { type: "error" });
-                });
-            }
-            else {
-                this.$http.put("http://localhost:1500/api/Manifests", this.manifest)
-                .then(response => {
-                    let updatedManifest = this.manifests.find(x => x.ID == this.manifest.ID);
-                    updatedManifest.Date = this.manifest.Date;
-                    updatedManifest.Cost = this.manifest.Cost;
-                    updatedManifest.Remark = this.manifest.Remark;
-                    this.showOperateManifest = false;
-                    bus.$emit("manifestChanged");
-                    this.$message({
-                        message: "修改成功",
-                        type: "success"
-                    });
-                })
-                .catch(err => {
-                    //console.log(err);
-                    this.$alert(err.body.Message, "修改消费明细", { type: "error" });
-                });
-            }
+            this.$refs.formManifest.validate(valid => {
+                if (valid) {
+                    let operateManifest = JSON.parse(JSON.stringify(this.manifest));
+                    operateManifest.Date = this.manifest.Date.format("yyyy-MM-dd");
+                    if (this.isAdd) {
+                        this.$http.post("http://localhost:1500/api/Manifests", operateManifest)
+                        .then(() => {
+                            this.manifests.push(operateManifest);
+                            this.showOperateManifest = false;
+                            bus.$emit("manifestChanged");
+                            this.$message({
+                                message: "添加成功",
+                                type: "success"
+                            });
+                        })
+                        .catch(err => {
+                            //console.log(err);
+                            this.$alert(err.body.Message, "添加日消费明细", { type: "error" });
+                        });
+                    }
+                    else {
+                        this.$http.put("http://localhost:1500/api/Manifests", operateManifest)
+                        .then(response => {
+                            let updatedManifest = this.manifests.find(x => x.ID == this.manifest.ID);
+                            updatedManifest.Date = operateManifest.Date;
+                            updatedManifest.Cost = operateManifest.Cost;
+                            updatedManifest.Remark = operateManifest.Remark;
+                            this.showOperateManifest = false;
+                            bus.$emit("manifestChanged");
+                            this.$message({
+                                message: "修改成功",
+                                type: "success"
+                            });
+                        })
+                        .catch(err => {
+                            //console.log(err);
+                            this.$alert(err.body.Message, "修改消费明细", { type: "error" });
+                        });
+                    }
+                }
+                else {
+                    return false;
+                }
+            });
         },
         cancel: function () {
             this.manifest = {};
@@ -105,9 +133,12 @@ const Manifests = {
                 });
             })
             .catch(err => {
-                //this.$alert(err.body.Message, "删除消费明细", { type: "error" });
-                console.log(err);
+                this.$alert(err.body.Message, "删除消费明细", { type: "error" });
+                //console.log(err);
             });
+        },
+        dialogClosed: function () {
+            this.$refs.formManifest.resetFields();
         }
     }
 }
