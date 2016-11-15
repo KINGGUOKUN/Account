@@ -37,19 +37,28 @@ const Manifests = {
                 Remark: [
                     { required: true, message: "请填写消费明细", trigger: "blur" }
                 ]
-            }
+            },
+            pageIndex: 0,
+            pageSize: 10,
+            total: 0,
+            pageSizes: [10, 20, 50, 100]
         }
     },
     methods: {
         fetchData: function () {
             this.manifests = [];
-            this.$http.get("http://localhost:1500/api/Manifests", {
+            this.$http.get("http://localhost:1500/api/Manifests/paged", {
                 params: {
                     start: this.start.format("yyyy-MM-dd"),
-                    end: this.end.format("yyyy-MM-dd")
+                    end: this.end.format("yyyy-MM-dd"),
+                    pageIndex: this.pageIndex,
+                    pageSize: this.pageSize
                 }
             })
-                      .then(response => this.manifests = response.body)
+                      .then(response => {
+                          this.total = response.body.count;
+                          this.manifests = response.body.data;
+                      })
                       .catch(response => this.$alert(response.body.Message, "日消费明细", { type: "error" }));
         },
         add: function () {
@@ -139,6 +148,14 @@ const Manifests = {
         },
         dialogClosed: function () {
             this.$refs.formManifest.resetFields();
+        },
+        sizeChange: function (pageSize) {
+            this.pageSize = pageSize;
+            this.fetchData();
+        },
+        pageIndexChange: function (pageIndex) {
+            this.pageIndex = pageIndex;
+            this.fetchData();
         }
     }
 }

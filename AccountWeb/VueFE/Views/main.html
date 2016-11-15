@@ -47,7 +47,7 @@
                 <el-button type="primary" size="small" v-on:click="add" icon="plus">添  加</el-button>
             </div>
             <div>
-                <el-table v-bind:data="manifests" highlight-current-row border>
+                <el-table v-bind:data="manifests" highlight-current-row border height="550">
                     <el-table-column prop="Date" label="日期"></el-table-column>
                     <el-table-column prop="Cost" label="金额"></el-table-column>
                     <el-table-column prop="Remark" label="备注"></el-table-column>
@@ -58,6 +58,13 @@
                         </span>
                     </el-table-column>
                 </el-table>
+            </div>
+            <div class="pager">
+                <el-pagination v-bind:current-Page="pageIndex" v-bind:page-size="pageSize" :total="total"
+                               layout="total,sizes,prev,pager,next,jumper" v-bind:page-sizes="pageSizes"
+                               v-on:size-change="sizeChange" v-on:current-change="pageIndexChange">
+
+                </el-pagination>
             </div>
             <div>
                 <el-dialog v-bind:title="title" v-bind:close-on-click-modal="false" v-model="showOperateManifest" v-on:close="dialogClosed">

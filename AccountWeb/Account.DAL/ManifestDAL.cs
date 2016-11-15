@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Account.DAL
 {
-    public class ManifestDAL 
+    public class ManifestDAL
     {
         #region Private Fields
 
@@ -48,6 +48,29 @@ namespace Account.DAL
             };
 
             return _database.GetList<Manifest>(Predicates.Group(GroupOperator.And, predicates), sorts);
+        }
+
+        /// <summary>
+        /// 按起止日期获取消费明细
+        /// </summary>
+        /// <param name="begin"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public IEnumerable<Manifest> GetManifest(DateTime start, DateTime end, int pageIndex, int pageSize, ref int count)
+        {
+            IPredicate[] predicates = new IPredicate[]
+            {
+                Predicates.Field<Manifest>(x => x.Date, Operator.Ge, start),
+                Predicates.Field<Manifest>(x => x.Date, Operator.Lt, new DateTime(end.Year, end.Month, end.Day).AddDays(1))
+            };
+            IList<ISort> sorts = new List<ISort>()
+            {
+                Predicates.Sort<Manifest>(x => x.Date),
+                Predicates.Sort<Manifest>(x => x.Cost)
+            };
+
+            count = _database.Count<Manifest>(Predicates.Group(GroupOperator.And, predicates));
+            return _database.GetPage<Manifest>(Predicates.Group(GroupOperator.And, predicates), sorts, pageIndex - 1, pageSize);
         }
 
         /// <summary>

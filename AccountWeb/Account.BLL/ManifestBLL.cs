@@ -38,6 +38,33 @@ namespace Account.BLL
         }
 
         /// <summary>
+        /// 按起止日期获取消费明细(分页)
+        /// </summary>
+        /// <param name="begin"></param>
+        /// <param name="end"></param>
+        /// <param name="pageIndex">页索引</param>
+        /// <param name="pageSize">每页大小</param>
+        /// <returns></returns>
+        public dynamic GetManifest(DateTime start, DateTime end, int pageIndex, int pageSize)
+        {
+            int count = 0;
+            var manifests = _dal.GetManifest(start, end, pageIndex, pageSize, ref count);
+
+            if (pageSize * (pageIndex - 1) >= count)
+            {
+                pageIndex = (int)Math.Ceiling(((double)count) / pageSize);
+                manifests = _dal.GetManifest(start, end, pageIndex, pageSize, ref count);
+            }
+
+            return new
+            {
+                pageIndex = pageIndex,
+                count,
+                data = manifests
+            };
+        }
+
+        /// <summary>
         /// 添加消费明细
         /// </summary>
         /// <param name="manifest"></param>

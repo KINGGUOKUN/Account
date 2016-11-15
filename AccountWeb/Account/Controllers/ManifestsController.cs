@@ -27,6 +27,12 @@ namespace Account.Controllers
             return _bll.GetManifest(start, end);
         }
 
+        [Route("paged"), HttpGet]
+        public dynamic GetManifest(DateTime start, DateTime end, int pageIndex, int pageSize)
+        {
+            return _bll.GetManifest(start, end, pageIndex, pageSize);
+        }
+
         /// <summary>
         /// 添加消费明细
         /// </summary>
@@ -38,7 +44,7 @@ namespace Account.Controllers
         {
             manifest = _bll.AddManifest(manifest);
             var response = Request.CreateResponse<Manifest>(HttpStatusCode.Created, manifest);
-            response.Headers.Location = new Uri(Url.Link("DefaultApi", 
+            response.Headers.Location = new Uri(Url.Link("DefaultApi",
                 new
                 {
                     controller = "Manifests",
