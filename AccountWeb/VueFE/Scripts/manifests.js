@@ -131,19 +131,22 @@ const Manifests = {
             this.showOperateManifest = true;
         },
         del: function (ID) {
-            this.$http.delete("http://localhost:1500/api/Manifests/" + ID)
-            .then(response => {
-                let index = this.manifests.findIndex(x => x.ID == ID);
-                this.manifests.splice(index, 1);
-                bus.$emit("manifestChanged");
-                this.$message({
-                    message: "删除成功",
-                    type: "success"
+            this.$confirm("是否删除？", "警告", { type: "warning" })
+            .then(() => {
+                this.$http.delete("http://localhost:1500/api/Manifests/" + ID)
+                .then(response => {
+                    let index = this.manifests.findIndex(x => x.ID == ID);
+                    this.manifests.splice(index, 1);
+                    bus.$emit("manifestChanged");
+                    this.$message({
+                        message: "删除成功",
+                        type: "success"
+                    });
+                })
+                .catch(err => {
+                    this.$alert(err.body.Message, "删除消费明细", { type: "error" });
+                    //console.log(err);
                 });
-            })
-            .catch(err => {
-                this.$alert(err.body.Message, "删除消费明细", { type: "error" });
-                //console.log(err);
             });
         },
         dialogClosed: function () {
