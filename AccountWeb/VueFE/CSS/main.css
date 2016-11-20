@@ -58,18 +58,23 @@ header {
     top: 60px;
     bottom: 60px;
     left: 5px;
-    overflow: scroll;
 }
+
+    #content div.search {
+    }
+
+    #content div.table {
+    }
 
     #content table {
         width: 100%;
         /*text-align: center;*/
     }
 
-.pager {
-    position: absolute;
-    bottom: 0;
-}
+    #content div.pager {
+        position: absolute;
+        bottom: 0;
+    }
 
 footer {
     width: 100%;
