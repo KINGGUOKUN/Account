@@ -26,6 +26,12 @@ namespace Account.Controllers
             return _bll.GetMonthlys(start, end);
         }
 
+        [Route("paged")]
+        public dynamic GetMonthlys(string start, string end, int pageIndex, int pageSize)
+        {
+            return _bll.GetMonthlys(start, end, pageIndex, pageSize);
+        }
+
         #endregion
     }
 }

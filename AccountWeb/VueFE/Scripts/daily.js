@@ -36,7 +36,6 @@ const Daily = {
                 })
                 .catch(response => this.$alert(response.body.Message, "日消费清单", { type: "error" }));
         },
-
         sizeChange: function (pageSize) {
             this.pageSize = pageSize;
             this.fetchData();

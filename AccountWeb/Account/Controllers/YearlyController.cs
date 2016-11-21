@@ -26,6 +26,12 @@ namespace Account.Controllers
             return _bll.GetYearlys(start, end);
         }
 
+        [Route("paged"),HttpGet]
+        public dynamic GetYearlys(string start, string end, int pageIndex, int pageSize)
+        {
+            return _bll.GetYearlys(start, end, pageIndex, pageSize);
+        }
+
         #endregion
     }
 }

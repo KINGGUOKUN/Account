@@ -23,6 +23,26 @@ namespace Account.BLL
             return _dal.GetMonthlys(start, end);
         }
 
+        public dynamic GetMonthlys(string start, string end, int pageIndex, int pageSize)
+        {
+            int count = 0;
+            pageIndex = pageIndex == 0 ? 1 : pageIndex;
+            var monthlys = _dal.GetMonthlys(start, end, pageIndex, pageSize, ref count);
+
+            if (pageSize * (pageIndex - 1) >= count)
+            {
+                pageIndex = (int)Math.Ceiling(((double)count) / pageSize);
+                monthlys = _dal.GetMonthlys(start, end, pageIndex, pageSize, ref count);
+            }
+
+            return new
+            {
+                pageIndex = pageIndex,
+                count,
+                data = monthlys
+            };
+        }
+
         #endregion
     }
 }

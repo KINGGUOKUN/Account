@@ -113,35 +113,48 @@
     </script>
     <script type="text/x-template" id="monthly">
         <div>
-            <div>
+            <div class="search">
                 开始月份：
                 <el-date-picker v-model="start" type="month" placeholder="选择月份"></el-date-picker>
                 结束月份：
                 <el-date-picker v-model="end" type="month" placeholder="选择月份"></el-date-picker>
                 <el-button type="primary" size="small" v-on:click="fetchData" icon="search">查  询</el-button>
             </div>
-            <div>
-                <el-table v-bind:data="monthly" highlight-current-row border>
+            <div class="table">
+                <el-table v-bind:data="monthly" highlight-current-row border height="auto">
                     <el-table-column prop="Month" label="月份"></el-table-column>
                     <el-table-column prop="Cost" label="金额"></el-table-column>
                 </el-table>
+            </div>
+            <div class="pager">
+                <el-pagination v-bind:current-Page="pageIndex" v-bind:page-size="pageSize" :total="total"
+                               layout="total,sizes,prev,pager,next,jumper" v-bind:page-sizes="pageSizes"
+                               v-on:size-change="sizeChange" v-on:current-change="pageIndexChange">
+
+                </el-pagination>
             </div>
         </div>
     </script>
     <script type="text/x-template" id="yearly">
         <div>
-            <div>
+            <div class="search">
                 开始年份：
                 <el-date-picker v-model="start" type="year" placeholder="选择年份"></el-date-picker>
                 结束年份：
                 <el-date-picker v-model="end" type="year" placeholder="选择年份"></el-date-picker>
                 <el-button type="primary" size="small" v-on:click="fetchData" icon="search">查  询</el-button>
             </div>
-            <div>
+            <div class="table">
                 <el-table v-bind:data="yearly" highlight-current-row border>
                     <el-table-column prop="Year" label="年份"></el-table-column>
                     <el-table-column prop="Cost" label="金额"></el-table-column>
                 </el-table>
+            </div>
+            <div class="pager">
+                <el-pagination v-bind:current-Page="pageIndex" v-bind:page-size="pageSize" :total="total"
+                               layout="total,sizes,prev,pager,next,jumper" v-bind:page-sizes="pageSizes"
+                               v-on:size-change="sizeChange" v-on:current-change="pageIndexChange">
+                </el-pagination>
             </div>
         </div>
     </script>

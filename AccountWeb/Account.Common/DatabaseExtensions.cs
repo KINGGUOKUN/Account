@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using System.Data;
+using System.Data.SqlClient;
+using System.Data.Common;
 
 namespace Account.Common
 {
@@ -52,6 +54,30 @@ namespace Account.Common
             }
 
             return database.Connection.Execute(sql: sql, param: dynamicParameters, commandTimeout: commandTimeOut) > 0;
+        }
+
+        public static object ExecuteScalar(this IDatabase database, string sql, Dictionary<string, object> parameters = null, int? commandTimeOut = null)
+        {
+            using (IDbCommand command = database.Connection.CreateCommand())
+            {
+                command.CommandText = sql;
+                if (commandTimeOut.HasValue)
+                {
+                    command.CommandTimeout = commandTimeOut.Value;
+                }
+                if (parameters != null && parameters.Count > 0)
+                {
+                    foreach (var pair in parameters)
+                    {
+                        var parameter = command.CreateParameter();
+                        parameter.ParameterName = pair.Key;
+                        parameter.Value = pair.Value;
+                        command.Parameters.Add(parameter);
+                    }
+                }
+
+                return command.ExecuteScalar();
+            }
         }
 
         /// <summary>

@@ -33,6 +33,33 @@ namespace Account.DAL
             return _database.GetList<Monthly>(sql, parameters);
         }
 
+        public IEnumerable<Monthly> GetMonthlys(string start, string end, int pageIndex, int pageSize, ref int count)
+        {
+            string sql = @"SELECT NEWID() ID, ROW_NUMBER() OVER(ORDER BY CONVERT(CHAR(7), DATE, 120)) RowNum, CONVERT(CHAR(7), DATE, 120) MONTH, SUM(COST) COST
+	                             FROM DAILY
+	                             WHERE CONVERT(CHAR(7), DATE, 120) BETWEEN @START AND @END
+	                             GROUP BY CONVERT(CHAR(7), DATE, 120)";
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("START", start);
+            parameters.Add("END", end);
+            var obj = _database.ExecuteScalar(string.Format("SELECT COUNT(*) FROM ({0}) V", sql), parameters);
+            if (obj != null)
+            {
+                count = int.Parse(obj.ToString());
+            }
+            if (count == 0)
+            {
+                return null;
+            }
+            sql = string.Format(@"SELECT v.ID, v.MONTH, v.COST
+                                  FROM ({0}) V
+                                  WHERE v.RowNum BETWEEN @startRowNum AND @endRowNum", sql);
+            parameters.Add("@startRowNum", pageSize * (pageIndex - 1) + 1);
+            parameters.Add("@endRowNum", pageSize * pageIndex);
+
+            return _database.GetList<Monthly>(sql, parameters);
+        }
+
         #endregion
     }
 }
