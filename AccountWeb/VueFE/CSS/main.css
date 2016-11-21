@@ -35,23 +35,6 @@ header {
     text-align: center;
 }
 
-/*#sideBar ul {
-        list-style: none;
-        margin: 0px auto;
-        padding: 0;
-    }
-
-    #sideBar li {
-        background: #ffd800;
-        text-align: center;
-        height: 100px;
-        margin: 5px 0;
-    }
-
-        #sideBar li:hover {
-            background: #ff0000;
-        }*/
-
 #content {
     position: fixed;
     margin-left: 25%;
@@ -65,14 +48,10 @@ header {
         height: 100%;
     }
 
-    #content div.search {
-        height: 38px;
-    }
-
     #content div.table {
         position: absolute;
-        top: 38px;
-        bottom: 35px;
+        top: 36px;
+        bottom: 34px;
     }
 
     #content div.el-table {
@@ -81,7 +60,6 @@ header {
 
     #content div.pager {
         position: absolute;
-        height: 35px;
         bottom: 0;
     }
 

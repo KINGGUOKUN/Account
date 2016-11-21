@@ -147,7 +147,8 @@ const Manifests = {
                     this.$alert(err.body.Message, "删除消费明细", { type: "error" });
                     //console.log(err);
                 });
-            });
+            })
+            .catch(err => console.log(err));
         },
         dialogClosed: function () {
             this.$refs.formManifest.resetFields();
