@@ -58,18 +58,37 @@ header {
     top: 60px;
     bottom: 60px;
     left: 5px;
-    overflow: scroll;
+    right: 0;
 }
+
+    #content > div {
+        height: 100%;
+    }
+
+    #content div.search {
+        height: 38px;
+    }
+
+    #content div.table {
+        position: absolute;
+        top: 38px;
+        bottom: 35px;
+    }
+
+    #content div.el-table {
+        height: 100%;
+    }
+
+    #content div.pager {
+        position: absolute;
+        height: 35px;
+        bottom: 0;
+    }
 
     #content table {
         width: 100%;
         /*text-align: center;*/
     }
-
-.pager {
-    position: absolute;
-    bottom: 0;
-}
 
 footer {
     width: 100%;
