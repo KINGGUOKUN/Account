@@ -48,6 +48,7 @@
             </div>
             <div class="table">
                 <el-table v-bind:data="manifests" highlight-current-row border height="auto">
+                    <el-table-column type="index" width="60"></el-table-column>
                     <el-table-column prop="Date" label="日期"></el-table-column>
                     <el-table-column prop="Cost" label="金额"></el-table-column>
                     <el-table-column prop="Remark" label="备注"></el-table-column>
@@ -98,6 +99,7 @@
             </div>
             <div class="table">
                 <el-table v-bind:data="dailys" highlight-current-row border height="auto">
+                    <el-table-column type="index" width="60"></el-table-column>
                     <el-table-column prop="Date" label="日期"></el-table-column>
                     <el-table-column prop="Cost" label="金额"></el-table-column>
                 </el-table>
@@ -122,6 +124,7 @@
             </div>
             <div class="table">
                 <el-table v-bind:data="monthly" highlight-current-row border height="auto">
+                    <el-table-column type="index" width="60"></el-table-column>
                     <el-table-column prop="Month" label="月份"></el-table-column>
                     <el-table-column prop="Cost" label="金额"></el-table-column>
                 </el-table>
@@ -130,7 +133,6 @@
                 <el-pagination v-bind:current-Page="pageIndex" v-bind:page-size="pageSize" :total="total"
                                layout="total,sizes,prev,pager,next,jumper" v-bind:page-sizes="pageSizes"
                                v-on:size-change="sizeChange" v-on:current-change="pageIndexChange">
-
                 </el-pagination>
             </div>
         </div>
@@ -146,6 +148,7 @@
             </div>
             <div class="table">
                 <el-table v-bind:data="yearly" highlight-current-row border>
+                    <el-table-column type="index" width="60"></el-table-column>
                     <el-table-column prop="Year" label="年份"></el-table-column>
                     <el-table-column prop="Cost" label="金额"></el-table-column>
                 </el-table>
