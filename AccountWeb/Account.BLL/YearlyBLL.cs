@@ -26,7 +26,6 @@ namespace Account.BLL
         public dynamic GetYearlys(string start, string end, int pageIndex, int pageSize)
         {
             int count = 0;
-            pageIndex = pageIndex == 0 ? 1 : pageIndex;
             var monthlys = _dal.GetYearlys(start, end, pageIndex, pageSize, ref count);
 
             if (pageSize * (pageIndex - 1) >= count)

@@ -38,7 +38,7 @@ const Manifests = {
                     { required: true, message: "请填写消费明细", trigger: "blur" }
                 ]
             },
-            pageIndex: 0,
+            pageIndex: 1,
             pageSize: 10,
             total: 0,
             pageSizes: [10, 20, 50, 100]

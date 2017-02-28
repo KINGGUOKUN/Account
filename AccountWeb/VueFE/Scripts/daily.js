@@ -13,7 +13,7 @@ const Daily = {
             start: new Date(currentDate.getFullYear(), currentDate.getMonth() - 3, 1),
             end: new Date(),
             dailys: [],
-            pageIndex: 0,
+            pageIndex: 1,
             pageSize: 10,
             total: 0,
             pageSizes: [10, 20, 50, 100]
