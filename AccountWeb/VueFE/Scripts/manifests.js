@@ -47,7 +47,7 @@ const Manifests = {
     methods: {
         fetchData: function () {
             this.manifests = [];
-            this.$http.get("http://localhost:1500/api/Manifests/paged", {
+            this.$http.get(SERVER_URL + "/api/Manifests/paged", {
                 params: {
                     start: this.start.format("yyyy-MM-dd"),
                     end: this.end.format("yyyy-MM-dd"),
@@ -55,11 +55,11 @@ const Manifests = {
                     pageSize: this.pageSize
                 }
             })
-                      .then(response => {
-                          this.total = response.body.count;
-                          this.manifests = response.body.data;
-                      })
-                      .catch(response => this.$alert(response.body.Message, "日消费明细", { type: "error" }));
+                .then(response => {
+                    this.total = response.body.count;
+                    this.manifests = response.body.data;
+                })
+                .catch(response => this.$alert(response.body.Message, "日消费明细", { type: "error" }));
         },
         add: function () {
             this.title = "添加消费明细";
@@ -78,39 +78,39 @@ const Manifests = {
                     let operateManifest = JSON.parse(JSON.stringify(this.manifest));
                     operateManifest.Date = this.manifest.Date.format("yyyy-MM-dd");
                     if (this.isAdd) {
-                        this.$http.post("http://localhost:1500/api/Manifests", operateManifest)
-                        .then(() => {
-                            this.manifests.push(operateManifest);
-                            this.showOperateManifest = false;
-                            bus.$emit("manifestChanged");
-                            this.$message({
-                                message: "添加成功",
-                                type: "success"
+                        this.$http.post(SERVER_URL + "/api/Manifests", operateManifest)
+                            .then(() => {
+                                this.manifests.push(operateManifest);
+                                this.showOperateManifest = false;
+                                bus.$emit("manifestChanged");
+                                this.$message({
+                                    message: "添加成功",
+                                    type: "success"
+                                });
+                            })
+                            .catch(err => {
+                                //console.log(err);
+                                this.$alert(err.body.Message, "添加日消费明细", { type: "error" });
                             });
-                        })
-                        .catch(err => {
-                            //console.log(err);
-                            this.$alert(err.body.Message, "添加日消费明细", { type: "error" });
-                        });
                     }
                     else {
-                        this.$http.put("http://localhost:1500/api/Manifests", operateManifest)
-                        .then(response => {
-                            let updatedManifest = this.manifests.find(x => x.ID == this.manifest.ID);
-                            updatedManifest.Date = operateManifest.Date;
-                            updatedManifest.Cost = operateManifest.Cost;
-                            updatedManifest.Remark = operateManifest.Remark;
-                            this.showOperateManifest = false;
-                            bus.$emit("manifestChanged");
-                            this.$message({
-                                message: "修改成功",
-                                type: "success"
+                        this.$http.put(SERVER_URL + "/api/Manifests", operateManifest)
+                            .then(response => {
+                                let updatedManifest = this.manifests.find(x => x.ID == this.manifest.ID);
+                                updatedManifest.Date = operateManifest.Date;
+                                updatedManifest.Cost = operateManifest.Cost;
+                                updatedManifest.Remark = operateManifest.Remark;
+                                this.showOperateManifest = false;
+                                bus.$emit("manifestChanged");
+                                this.$message({
+                                    message: "修改成功",
+                                    type: "success"
+                                });
+                            })
+                            .catch(err => {
+                                //console.log(err);
+                                this.$alert(err.body.Message, "修改消费明细", { type: "error" });
                             });
-                        })
-                        .catch(err => {
-                            //console.log(err);
-                            this.$alert(err.body.Message, "修改消费明细", { type: "error" });
-                        });
                     }
                 }
                 else {
@@ -132,23 +132,23 @@ const Manifests = {
         },
         del: function (ID) {
             this.$confirm("是否删除？", "警告", { type: "warning" })
-            .then(() => {
-                this.$http.delete("http://localhost:1500/api/Manifests/" + ID)
-                .then(response => {
-                    let index = this.manifests.findIndex(x => x.ID == ID);
-                    this.manifests.splice(index, 1);
-                    bus.$emit("manifestChanged");
-                    this.$message({
-                        message: "删除成功",
-                        type: "success"
-                    });
+                .then(() => {
+                    this.$http.delete(SERVER_URL + "http://localhost:1500/api/Manifests/" + ID)
+                        .then(response => {
+                            let index = this.manifests.findIndex(x => x.ID == ID);
+                            this.manifests.splice(index, 1);
+                            bus.$emit("manifestChanged");
+                            this.$message({
+                                message: "删除成功",
+                                type: "success"
+                            });
+                        })
+                        .catch(err => {
+                            this.$alert(err.body.Message, "删除消费明细", { type: "error" });
+                            //console.log(err);
+                        });
                 })
-                .catch(err => {
-                    this.$alert(err.body.Message, "删除消费明细", { type: "error" });
-                    //console.log(err);
-                });
-            })
-            .catch(err => console.log(err));
+                .catch(err => console.log(err));
         },
         dialogClosed: function () {
             this.$refs.formManifest.resetFields();

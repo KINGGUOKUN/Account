@@ -72,6 +72,7 @@
     <Content Include="CSS\fonts\element-icons.svg" />
     <Content Include="CSS\index.css" />
     <Content Include="CSS\main.css" />
+    <Content Include="Scripts\config.js" />
     <Content Include="Scripts\daily.js" />
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\main.js" />
