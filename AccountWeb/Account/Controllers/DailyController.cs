@@ -13,7 +13,7 @@ namespace Account.Controllers
     /// 日消费清单
     /// </summary>
     [RoutePrefix("api/Dailys")]
-    public class DailysController : ApiController
+    public class DailyController : ApiController
     {
         #region Private Fields
 

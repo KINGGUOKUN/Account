@@ -13,7 +13,7 @@ namespace Account.Controllers
     /// 日消费明细控制器
     /// </summary>
     [RoutePrefix("api/Manifests")]
-    public class ManifestsController : ApiController
+    public class ManifestController : ApiController
     {
         #region Private Fields
 

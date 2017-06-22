@@ -105,8 +105,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\DailysController.cs" />
-    <Compile Include="Controllers\ManifestsController.cs" />
+    <Compile Include="Controllers\DailyController.cs" />
+    <Compile Include="Controllers\ManifestController.cs" />
     <Compile Include="Controllers\MonthlyController.cs" />
     <Compile Include="Controllers\YearlyController.cs" />
     <Compile Include="Filters\AuthenticationFailureResult.cs" />

@@ -22,7 +22,7 @@ const Daily = {
     methods: {
         fetchData: function () {
             this.dailys = [];
-            this.$http.get(SERVER_URL + "/dailys/paged", {
+            this.$http.get(SERVER_URL + "/daily/paged", {
                 params: {
                     start: this.start.format("yyyy-MM-dd"),
                     end: this.end.format("yyyy-MM-dd"),

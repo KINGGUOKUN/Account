@@ -47,7 +47,7 @@ const Manifests = {
     methods: {
         fetchData: function () {
             this.manifests = [];
-            this.$http.get(SERVER_URL + "/Manifests/paged", {
+            this.$http.get(SERVER_URL + "/Manifest/paged", {
                 params: {
                     start: this.start.format("yyyy-MM-dd"),
                     end: this.end.format("yyyy-MM-dd"),
