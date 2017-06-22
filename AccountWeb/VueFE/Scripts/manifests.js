@@ -47,7 +47,7 @@ const Manifests = {
     methods: {
         fetchData: function () {
             this.manifests = [];
-            this.$http.get(SERVER_URL + "/api/Manifests/paged", {
+            this.$http.get(SERVER_URL + "/Manifests/paged", {
                 params: {
                     start: this.start.format("yyyy-MM-dd"),
                     end: this.end.format("yyyy-MM-dd"),
@@ -78,7 +78,7 @@ const Manifests = {
                     let operateManifest = JSON.parse(JSON.stringify(this.manifest));
                     operateManifest.Date = this.manifest.Date.format("yyyy-MM-dd");
                     if (this.isAdd) {
-                        this.$http.post(SERVER_URL + "/api/Manifests", operateManifest)
+                        this.$http.post(SERVER_URL + "/Manifests", operateManifest)
                             .then(() => {
                                 this.manifests.push(operateManifest);
                                 this.showOperateManifest = false;
@@ -94,7 +94,7 @@ const Manifests = {
                             });
                     }
                     else {
-                        this.$http.put(SERVER_URL + "/api/Manifests", operateManifest)
+                        this.$http.put(SERVER_URL + "/Manifests", operateManifest)
                             .then(response => {
                                 let updatedManifest = this.manifests.find(x => x.ID == this.manifest.ID);
                                 updatedManifest.Date = operateManifest.Date;
@@ -133,7 +133,7 @@ const Manifests = {
         del: function (ID) {
             this.$confirm("是否删除？", "警告", { type: "warning" })
                 .then(() => {
-                    this.$http.delete(SERVER_URL + "http://localhost:1500/api/Manifests/" + ID)
+                    this.$http.delete(SERVER_URL + "/Manifests/" + ID)
                         .then(response => {
                             let index = this.manifests.findIndex(x => x.ID == ID);
                             this.manifests.splice(index, 1);

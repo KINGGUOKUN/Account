@@ -22,7 +22,7 @@ const Monthly = {
     methods: {
         fetchData: function () {
             this.monthly = [];
-            this.$http.get(SERVER_URL + "/api/monthly/paged", {
+            this.$http.get(SERVER_URL + "/monthly/paged", {
                 params: {
                     start: this.start.format("yyyy-MM"),
                     end: this.end.format("yyyy-MM"),

@@ -1,1 +1,1 @@
-﻿const SERVER_URL = "http://localhost:1500";
+﻿const SERVER_URL = "http://localhost:1500/api";

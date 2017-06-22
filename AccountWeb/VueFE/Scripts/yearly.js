@@ -22,7 +22,7 @@ const Yearly = {
     methods: {
         fetchData: function () {
             this.yearlys = [];
-            this.$http.get(SERVER_URL + "/api/yearly/paged", {
+            this.$http.get(SERVER_URL + "/yearly/paged", {
                 params: {
                     start: this.start,
                     end: this.end,
