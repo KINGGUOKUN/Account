@@ -1,0 +1,10 @@
+﻿{
+  "modules": [
+    {
+      "type": "Account.Repository.EF.RepositoryModule, Account.Repository.EF"
+    },
+    {
+      "type": "Account.Service.ServiceModule, Account.Service"
+    }
+  ]
+}

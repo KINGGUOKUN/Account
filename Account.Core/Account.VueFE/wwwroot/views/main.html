@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="../css/index.css" rel="stylesheet" />
+    <link href="../css/main.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <h1>账户管理系统</h1>
+    </header>
+    <div id="main">
+        <div id="sideBar">
+            <!--<ul>
+                <router-link to="/manifests" tag="li">日消费明细</router-link>
+                <router-link to="/daily" tag="li">日消费清单</router-link>
+                <router-link to="/monthly" tag="li">月消费明细</router-link>
+                <router-link to="/yearly" tag="li">年消费明细</router-link>
+            </ul>-->
+            <el-menu default-active="manifests" theme="dark" v-bind:router="true">
+                <el-menu-item index="manifests">日消费明细</el-menu-item>
+                <el-menu-item index="daily">日消费清单</el-menu-item>
+                <el-menu-item index="monthly">月消费明细</el-menu-item>
+                <el-menu-item index="yearly">年消费明细</el-menu-item>
+            </el-menu>
+        </div>
+        <div id="content">
+            <transition>
+                <keep-alive>
+                    <router-view></router-view>
+                </keep-alive>
+            </transition>
+        </div>
+    </div>
+    <footer>
+        <h1>Copyright@GuoKun</h1>
+    </footer>
+    <script type="text/x-template" id="manifests">
+        <div>
+            <div class="search">
+                开始日期：
+                <el-date-picker v-model="start" type="date" placeholder="选择日期"></el-date-picker>
+                结束日期：
+                <el-date-picker v-model="end" type="date" placeholder="选择日期"></el-date-picker>
+                <el-button type="primary" size="small" v-on:click="fetchData" icon="search">查  询</el-button>
+                <el-button type="primary" size="small" v-on:click="add" icon="plus">添  加</el-button>
+            </div>
+            <div class="table">
+                <el-table v-bind:data="manifests" highlight-current-row border height="auto">
+                    <el-table-column type="index" width="60"></el-table-column>
+                    <el-table-column prop="date" label="日期"></el-table-column>
+                    <el-table-column prop="cost" label="金额"></el-table-column>
+                    <el-table-column prop="remark" label="备注"></el-table-column>
+                    <el-table-column inline-template label="操作">
+                        <span>
+                            <el-button type="text" size="small" v-on:click="edit(row.id)" icon="edit">编 辑</el-button>
+                            <el-button type="text" size="small" v-on:click="del(row.id)" icon="delete">删 除</el-button>
+                        </span>
+                    </el-table-column>
+                </el-table>
+            </div>
+            <div class="pager">
+                <el-pagination v-bind:current-Page="pageIndex" v-bind:page-size="pageSize" :total="total"
+                               layout="total,sizes,prev,pager,next,jumper" v-bind:page-sizes="pageSizes"
+                               v-on:size-change="sizeChange" v-on:current-change="pageIndexChange">
+
+                </el-pagination>
+            </div>
+            <div>
+                <el-dialog v-bind:title="title" v-bind:close-on-click-modal="false" v-model="showOperateManifest" v-on:close="dialogClosed">
+                    <el-form v-bind:model="manifest" v-bind:rules="rules" ref="formManifest" label-position="left" label-width="80px">
+                        <el-form-item label="日  期" prop="date">
+                            <el-date-picker v-model="manifest.date"></el-date-picker>
+                        </el-form-item>
+                        <el-form-item label="金  额" prop="cost">
+                            <el-input v-model="manifest.cost"></el-input>
+                        </el-form-item>
+                        <el-form-item label="备  注" prop="remark">
+                            <el-input v-model="manifest.remark"></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" v-on:click="save">确 定</el-button>
+                            <el-button type="primary" v-on:click="cancel">取 消</el-button>
+                        </el-form-item>
+                    </el-form>
+                </el-dialog>
+            </div>
+        </div>
+    </script>
+    <script type="text/x-template" id="daily">
+        <div>
+            <div class="search">
+                开始日期：
+                <el-date-picker v-model="start" type="date" placeholder="选择日期"></el-date-picker>
+                结束日期：
+                <el-date-picker v-model="end" type="date" placeholder="选择日期"></el-date-picker>
+                <el-button type="primary" size="small" v-on:click="fetchData" icon="search">查  询</el-button>
+            </div>
+            <div class="table">
+                <el-table v-bind:data="dailys" highlight-current-row border height="auto">
+                    <el-table-column type="index" width="60"></el-table-column>
+                    <el-table-column prop="date" label="日期"></el-table-column>
+                    <el-table-column prop="cost" label="金额"></el-table-column>
+                </el-table>
+            </div>
+            <div class="pager">
+                <el-pagination v-bind:current-Page="pageIndex" v-bind:page-size="pageSize" :total="total"
+                               layout="total,sizes,prev,pager,next,jumper" v-bind:page-sizes="pageSizes"
+                               v-on:size-change="sizeChange" v-on:current-change="pageIndexChange">
+
+                </el-pagination>
+            </div>
+        </div>
+    </script>
+    <script type="text/x-template" id="monthly">
+        <div>
+            <div class="search">
+                开始月份：
+                <el-date-picker v-model="start" type="month" placeholder="选择月份"></el-date-picker>
+                结束月份：
+                <el-date-picker v-model="end" type="month" placeholder="选择月份"></el-date-picker>
+                <el-button type="primary" size="small" v-on:click="fetchData" icon="search">查  询</el-button>
+            </div>
+            <div class="table">
+                <el-table v-bind:data="monthly" highlight-current-row border height="auto">
+                    <el-table-column type="index" width="60"></el-table-column>
+                    <el-table-column prop="month" label="月份"></el-table-column>
+                    <el-table-column prop="cost" label="金额"></el-table-column>
+                </el-table>
+            </div>
+            <div class="pager">
+                <el-pagination v-bind:current-Page="pageIndex" v-bind:page-size="pageSize" :total="total"
+                               layout="total,sizes,prev,pager,next,jumper" v-bind:page-sizes="pageSizes"
+                               v-on:size-change="sizeChange" v-on:current-change="pageIndexChange">
+                </el-pagination>
+            </div>
+        </div>
+    </script>
+    <script type="text/x-template" id="yearly">
+        <div>
+            <div class="search">
+                开始年份：
+                <el-date-picker v-model="start" type="year" placeholder="选择年份"></el-date-picker>
+                结束年份：
+                <el-date-picker v-model="end" type="year" placeholder="选择年份"></el-date-picker>
+                <el-button type="primary" size="small" v-on:click="fetchData" icon="search">查  询</el-button>
+            </div>
+            <div class="table">
+                <el-table v-bind:data="yearly" highlight-current-row border>
+                    <el-table-column type="index" width="60"></el-table-column>
+                    <el-table-column prop="year" label="年份"></el-table-column>
+                    <el-table-column prop="cost" label="金额"></el-table-column>
+                </el-table>
+            </div>
+            <div class="pager">
+                <el-pagination v-bind:current-Page="pageIndex" v-bind:page-size="pageSize" :total="total"
+                               layout="total,sizes,prev,pager,next,jumper" v-bind:page-sizes="pageSizes"
+                               v-on:size-change="sizeChange" v-on:current-change="pageIndexChange">
+                </el-pagination>
+            </div>
+        </div>
+    </script>
+    <script src="../scripts/vue.js"></script>
+    <script src="../scripts/index.js"></script>
+    <script src="../scripts/vue-router.js"></script>
+    <script src="../scripts/vue-resource.js"></script>
+    <script src="../scripts/util.js"></script>
+    <script src="../scripts/config.js"></script>
+    <script src="../scripts/manifest.js"></script>
+    <script src="../scripts/daily.js"></script>
+    <script src="../scripts/monthly.js"></script>
+    <script src="../scripts/yearly.js"></script>
+    <script src="../scripts/main.js"></script>
+</body>
+</html>
