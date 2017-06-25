@@ -12,6 +12,7 @@ using Autofac.Extensions.DependencyInjection;
 using Autofac.Configuration;
 using Account.Repository.EF;
 using Microsoft.EntityFrameworkCore;
+using Account.Infrustures;
 
 namespace Account
 {
@@ -39,7 +40,7 @@ namespace Account
 
             services.AddCors();
             // Add framework services.
-            services.AddMvc()
+            services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
                 .AddJsonOptions(options => options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss");
 
             var builder = new ContainerBuilder();

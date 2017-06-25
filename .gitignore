@@ -58,3 +58,8 @@ Account/Account.v12.suo
 
 # 忽略.vs文件夹
 .vs/
+/Account.Core/Account/wwwroot/lib/node_modules
+/Account.Core/Account/wwwroot/lib/node_modules
+/Account.Core/Account/wwwroot/lib/node_modules
+/Account.Core/Account/wwwroot/lib/node_modules/async-validator/lib/rule
+/Account.Core/Account/wwwroot/lib/node_modules

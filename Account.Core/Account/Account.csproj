@@ -37,6 +37,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Account.Common\Account.Common.csproj" />
     <ProjectReference Include="..\Account.Repository.EF\Account.Repository.EF.csproj" />
     <ProjectReference Include="..\Account.Service\Account.Service.csproj" />
   </ItemGroup>
