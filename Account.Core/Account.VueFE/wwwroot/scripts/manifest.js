@@ -3,8 +3,8 @@
 /// <reference path="vue-resource.js" />
 /// <reference path="util.js" />
 
-const Manifests = {
-    template: "#manifests",
+const Manifest = {
+    template: "#manifest",
     created: function () {
         this.fetchData();
     },
@@ -59,7 +59,7 @@ const Manifests = {
                     this.total = response.body.count;
                     this.manifests = response.body.items;
                 })
-                .catch(response => this.$alert(response.body.Message, "日消费明细", { type: "error" }));
+                .catch(response => this.$alert(response.body, "日消费明细", { type: "error" }));
         },
         add: function () {
             this.title = "添加消费明细";
@@ -90,7 +90,7 @@ const Manifests = {
                             })
                             .catch(err => {
                                 //console.log(err);
-                                this.$alert(err.body.Message, "添加日消费明细", { type: "error" });
+                                this.$alert(err.body, "添加日消费明细", { type: "error" });
                             });
                     }
                     else {
@@ -109,7 +109,7 @@ const Manifests = {
                             })
                             .catch(err => {
                                 //console.log(err);
-                                this.$alert(err.body.Message, "修改消费明细", { type: "error" });
+                                this.$alert(err.body, "修改消费明细", { type: "error" });
                             });
                     }
                 }
@@ -144,7 +144,7 @@ const Manifests = {
                             });
                         })
                         .catch(err => {
-                            this.$alert(err.body.Message, "删除消费明细", { type: "error" });
+                            this.$alert(err.body, "删除消费明细", { type: "error" });
                             //console.log(err);
                         });
                 })

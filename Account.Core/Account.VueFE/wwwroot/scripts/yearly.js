@@ -34,7 +34,7 @@ const Yearly = {
                     this.total = response.body.count;
                     this.yearly = response.body.items;
                 })
-                .catch(response => this.$alert(response.body.Message, "年消费清单", { type: "error" }));
+                .catch(response => this.$alert(response.body, "年消费清单", { type: "error" }));
         },
         sizeChange: function (pageSize) {
             this.pageSize = pageSize;

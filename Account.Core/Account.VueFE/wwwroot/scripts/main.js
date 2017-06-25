@@ -4,7 +4,7 @@
 
 const router = new VueRouter({
     routes: [
-        { name: "manifests", path: "/manifests", component: Manifests },
+        { name: "manifest", path: "/manifest", component: Manifest },
         { name: "daily", path: "/daily", component: Daily },
         { name: "monthly", path: "/monthly", component: Monthly },
         { name: "yearly", path: "/yearly", component: Yearly }
@@ -17,7 +17,7 @@ window.onload = function () {
         el: "#main",
         router: router,
         created: function () {
-            router.push("manifests");
+            router.push("manifest");
         }
     });
 }

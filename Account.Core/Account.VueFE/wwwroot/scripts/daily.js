@@ -34,7 +34,7 @@ const Daily = {
                     this.total = response.body.count;
                     this.dailys = response.body.items;
                 })
-                .catch(response => this.$alert(response.body.Message, "日消费清单", { type: "error" }));
+                .catch(response => this.$alert(response.body, "日消费清单", { type: "error" }));
         },
         sizeChange: function (pageSize) {
             this.pageSize = pageSize;

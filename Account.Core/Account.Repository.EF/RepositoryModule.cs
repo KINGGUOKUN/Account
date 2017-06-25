@@ -18,7 +18,7 @@ namespace Account.Repository.EF
             builder.RegisterAssemblyTypes(this.ThisAssembly)
                 .Where(t => t.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces()
-                .InstancePerRequest();
+                .InstancePerLifetimeScope();
         }
     }
 }

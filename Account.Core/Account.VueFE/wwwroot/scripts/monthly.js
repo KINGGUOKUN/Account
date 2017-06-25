@@ -34,7 +34,7 @@ const Monthly = {
                     this.total = response.body.count;
                     this.monthly = response.body.items;
                 })
-                .catch(response => this.$alert(response.body.Message, "月消费清单", { type: "error" }));
+                .catch(response => this.$alert(response.body, "月消费清单", { type: "error" }));
         },
         sizeChange: function (pageSize) {
             this.pageSize = pageSize;

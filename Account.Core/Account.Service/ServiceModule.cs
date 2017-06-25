@@ -18,7 +18,7 @@ namespace Account.Service
             builder.RegisterAssemblyTypes(this.ThisAssembly)
                 .Where(t => t.Name.EndsWith("Service"))
                 .AsImplementedInterfaces()
-                .InstancePerRequest();
+                .InstancePerLifetimeScope();
         }
     }
 }

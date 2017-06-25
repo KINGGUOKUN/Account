@@ -7,6 +7,7 @@
   <ItemGroup>
     <Content Include="wwwroot\scripts\config.js" />
     <Content Include="wwwroot\scripts\manifest.js" />
+    <Content Include="wwwroot\scripts\vue.min.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,7 +20,6 @@
     <None Include="wwwroot\scripts\daily.js" />
     <None Include="wwwroot\scripts\index.js" />
     <None Include="wwwroot\scripts\main.js" />
-    <None Include="wwwroot\scripts\manifests.js" />
     <None Include="wwwroot\scripts\monthly.js" />
     <None Include="wwwroot\scripts\util.js" />
     <None Include="wwwroot\scripts\vue-resource.js" />
