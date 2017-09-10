@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Account.Service.Contract
 {
-    public interface IMonthlyService 
+    public interface IMonthlyService : IService
     {
         Task<PaginatedList<Monthly>> GetMonthlys(string start, string end, int pageIndex, int pageSize);
     }

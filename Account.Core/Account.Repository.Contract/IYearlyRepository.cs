@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Account.Repository.Contract
 {
-    public interface IYearlyRepository 
+    public interface IYearlyRepository : IRepository
     {
         Task<PaginatedList<Yearly>> GetYearlys(int start, int end, int pageIndex, int pageSize);
     }

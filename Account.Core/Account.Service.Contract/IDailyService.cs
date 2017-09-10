@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Account.Service.Contract
 {
-    public interface IDailyService 
+    public interface IDailyService : IService
     {
         Task<PaginatedList<Daily>> GetDailys(DateTime start, DateTime end, int pageIndex, int pageSize);
     }

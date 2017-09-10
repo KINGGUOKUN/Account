@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Account.Service.Contract
 {
-    public interface IManifestService
+    public interface IManifestService : IService
     {
         Task<PaginatedList<Manifest>> GetManifests(DateTime start, DateTime end, int pageIndex, int pageSize);
 

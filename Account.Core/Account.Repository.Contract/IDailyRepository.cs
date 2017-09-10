@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Account.Repository.Contract
 {
-    public interface IDailyRepository
+    public interface IDailyRepository : IRepository
     {
         Task<PaginatedList<Daily>> GetDailys(DateTime start, DateTime end, int pageIndex, int pageSize);
     }

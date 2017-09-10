@@ -11,7 +11,8 @@ namespace Account.Service
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterAssemblyTypes(this.ThisAssembly)
-                .Where(t => t.Name.EndsWith("Service"))
+                //.Where(t => t.Name.EndsWith("Service"))
+                .Where(t => typeof(IService).IsAssignableFrom(t))
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
         }

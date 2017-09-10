@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Account.Repository.Contract
 {
-    public interface IManifestRepository 
+    public interface IManifestRepository : IRepository
     {
         Task<PaginatedList<Manifest>> GetManifests(DateTime start, DateTime end, int pageIndex, int pageSize);
 

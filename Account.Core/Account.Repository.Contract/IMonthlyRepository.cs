@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Account.Repository.Contract
 {
-    public interface IMontylyRepository 
+    public interface IMontylyRepository : IRepository
     {
         Task<PaginatedList<Monthly>> GetMonthlys(string start, string end, int pageIndex, int pageSize);
     }

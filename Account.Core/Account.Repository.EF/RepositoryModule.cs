@@ -11,7 +11,8 @@ namespace Account.Repository.EF
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterAssemblyTypes(this.ThisAssembly)
-                .Where(t => t.Name.EndsWith("Repository"))
+                //.Where(t => t.Name.EndsWith("Repository"))
+                .Where(t => typeof(IRepository).IsAssignableFrom(t))
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
         }
