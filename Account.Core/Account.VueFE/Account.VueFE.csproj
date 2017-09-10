@@ -5,8 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\fonts\element-icons.eot" />
-    <None Include="wwwroot\css\fonts\element-icons.svg" />
     <None Include="wwwroot\css\fonts\element-icons.ttf" />
     <None Include="wwwroot\css\fonts\element-icons.woff" />
     <None Include="wwwroot\css\index.css" />
@@ -18,7 +16,6 @@
     <None Include="wwwroot\scripts\util.js" />
     <None Include="wwwroot\scripts\vue-resource.js" />
     <None Include="wwwroot\scripts\vue-router.js" />
-    <None Include="wwwroot\scripts\vue.js" />
     <None Include="wwwroot\scripts\vuex.js" />
     <None Include="wwwroot\scripts\yearly.js" />
     <None Include="wwwroot\views\main.html" />
