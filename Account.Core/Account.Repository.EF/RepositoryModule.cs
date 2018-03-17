@@ -10,6 +10,9 @@ namespace Account.Repository.EF
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<EFUnitOfWork>()
+                .As<IUnitOfWork>()
+                .InstancePerLifetimeScope();
             builder.RegisterAssemblyTypes(this.ThisAssembly)
                 .Where(t => t.IsAssignableTo<IRepository>())
                 .AsImplementedInterfaces()

@@ -10,9 +10,9 @@ namespace Account.Repository.EF
 {
     public class EFUnitOfWork : IUnitOfWork
     {
-        private readonly DbContext _context;
+        private readonly AccountContext _context;
 
-        public EFUnitOfWork(DbContext context)
+        public EFUnitOfWork(AccountContext context)
         {
             _context = context;
         }

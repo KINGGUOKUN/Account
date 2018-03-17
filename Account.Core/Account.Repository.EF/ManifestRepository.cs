@@ -10,11 +10,12 @@ using Account.Common;
 
 namespace Account.Repository.EF
 {
-    public class ManifestRepository : IManifestRepository
+    public class ManifestRepository : Repository<Manifest>, IManifestRepository
     {
         private readonly AccountContext _context;
 
         public ManifestRepository(AccountContext context)
+            :base(context)
         {
             _context = context;
         }
