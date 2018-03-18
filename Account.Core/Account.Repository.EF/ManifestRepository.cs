@@ -22,7 +22,7 @@ namespace Account.Repository.EF
 
         public async Task<PaginatedList<Manifest>> GetManifests(DateTime start, DateTime end, int pageIndex, int pageSize)
         {
-            var source = _context.Manifests.Where(x => x.Date >= start && x.Date < new DateTime(end.Year, end.Month, end.Day).AddDays(1));
+            var source = dbSet.Where(x => x.Date >= start && x.Date < new DateTime(end.Year, end.Month, end.Day).AddDays(1));
             int count = await source.CountAsync();
             List<Manifest> manifests = null;
             if (count > 0)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Account.Entity;
 
 namespace Account.Repository.EF
 {
@@ -11,7 +12,7 @@ namespace Account.Repository.EF
         {
             context.Database.EnsureCreated();
 
-            if(context.Manifests.Any())
+            if(context.Set<Manifest>().Any())
             {
                 return;
             }

@@ -13,9 +13,6 @@ namespace Account.Repository.EF
         {
 
         }
-
-        public DbSet<Manifest> Manifests { get; set; }
-        public DbSet<Daily> Dailys { get; set; }
         
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
