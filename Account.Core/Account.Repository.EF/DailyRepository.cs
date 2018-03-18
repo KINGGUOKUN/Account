@@ -11,12 +11,9 @@ namespace Account.Repository.EF
 {
     public class DailyRepository : Repository<Daily>, IDailyRepository
     {
-        private readonly AccountContext _context;
-
         public DailyRepository(AccountContext context)
             :base(context)
         {
-            _context = context;
         }
 
         public async Task<PaginatedList<Daily>> GetDailys(DateTime start, DateTime end, int pageIndex, int pageSize)

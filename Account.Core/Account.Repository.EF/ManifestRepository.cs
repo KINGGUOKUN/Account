@@ -12,12 +12,10 @@ namespace Account.Repository.EF
 {
     public class ManifestRepository : Repository<Manifest>, IManifestRepository
     {
-        private readonly AccountContext _context;
 
         public ManifestRepository(AccountContext context)
             :base(context)
         {
-            _context = context;
         }
 
         public async Task<PaginatedList<Manifest>> GetManifests(DateTime start, DateTime end, int pageIndex, int pageSize)
