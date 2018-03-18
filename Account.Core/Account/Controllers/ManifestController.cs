@@ -62,19 +62,6 @@ namespace Account.Controllers
             return CreatedAtRoute(new { ID = manifest.ID }, manifest);
         }
 
-        //public IActionResult Edit(string ID)
-        //{
-        //    var manifest = _manifestService.GetManifestById(ID);
-        //    if (manifest == null)
-        //    {
-        //        return NotFound("指定消费明细已删除");
-        //    }
-        //    else
-        //    {
-        //        return View(manifest);
-        //    }
-        //}
-
         [HttpPut("")]
         public IActionResult Edit([FromBody]Manifest manifest)
         {

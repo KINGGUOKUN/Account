@@ -9,13 +9,5 @@ namespace Account.Repository.Contract
     public interface IManifestRepository : IRepository<Manifest>
     {
         Task<PaginatedList<Manifest>> GetManifests(DateTime start, DateTime end, int pageIndex, int pageSize);
-
-        //Manifest GetManifestById(string ID);
-
-        //Manifest AddManifest(Manifest manifest);
-
-        //void UpdateManifest(Manifest manifest);
-
-        //void DeleteManifest(string ID);
     }
 }

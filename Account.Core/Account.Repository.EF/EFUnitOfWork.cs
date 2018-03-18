@@ -1,5 +1,6 @@
 ﻿using Account.Repository.Contract;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -19,14 +20,14 @@ namespace Account.Repository.EF
 
         public DbTransaction BeginTransaction()
         {
-            var transaction = _context.Database.GetDbConnection().BeginTransaction();
-            _context.Database.UseTransaction(transaction);
+            _context.Database.BeginTransaction();
 
-            return transaction;
+            return _context.Database.CurrentTransaction.GetDbTransaction();
         }
 
         public void CommitTransaction()
         {
+            _context.SaveChanges();
             _context.Database.CommitTransaction();
         }
 

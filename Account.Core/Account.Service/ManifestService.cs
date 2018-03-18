@@ -44,7 +44,6 @@ namespace Account.Service
 
         public Manifest AddManifest(Manifest manifest)
         {
-            //return _manifestRepository.AddManifest(manifest);
             try
             {
                 _unitOfWork.BeginTransaction();
@@ -75,19 +74,16 @@ namespace Account.Service
             {
                 _unitOfWork.RollbackTransaction();
                 throw e;
-            }
-           
+            }           
         }
 
         public void DeleteManifest(string ID)
         {
-            //_manifestRepository.DeleteManifest(ID);
             _manifestRepository.Delete(ID);
         }
 
         public void UpdateManifest(Manifest manifest)
         {
-            //return _manifestRepository.UpdateManifest(manifest);
             _manifestRepository.Update(manifest);
         }
     }

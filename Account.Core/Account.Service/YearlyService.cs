@@ -10,7 +10,6 @@ namespace Account.Service
 {
     public class YearlyService : IYearlyService
     {
-        //private readonly IYearlyRepository _yearlyRepository;
         private readonly IDailyRepository _dailyRepository;
 
         public YearlyService(IDailyRepository  dailyRepository)
