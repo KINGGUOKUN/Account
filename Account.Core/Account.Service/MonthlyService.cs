@@ -10,21 +10,22 @@ namespace Account.Service
 {
     public class MonthlyService : IMonthlyService
     {
-        private readonly IMontylyRepository _monthlyRepository;
+        //private readonly IMontylyRepository _monthlyRepository;
+        private readonly IDailyRepository _dailyRepository;
 
-        public MonthlyService(IMontylyRepository monthlyRepository)
+        public MonthlyService(IDailyRepository dailyRepository)
         {
-            _monthlyRepository = monthlyRepository;
+            _dailyRepository = dailyRepository;
         }
 
         public async Task<PaginatedList<Monthly>> GetMonthlys(string start, string end, int pageIndex, int pageSize)
         {
-            var pagedList = await _monthlyRepository.GetMonthlys(start, end, pageIndex, pageSize);
+            var pagedList = await _dailyRepository.GetMonthlys(start, end, pageIndex, pageSize);
 
             if (pageSize * (pageIndex - 1) >= pagedList.Count)
             {
                 pageIndex = (int)Math.Ceiling(((double)pagedList.Count) / pageSize);
-                pagedList = await _monthlyRepository.GetMonthlys(start, end, pageIndex, pageSize);
+                pagedList = await _dailyRepository.GetMonthlys(start, end, pageIndex, pageSize);
             }
 
             return pagedList;
