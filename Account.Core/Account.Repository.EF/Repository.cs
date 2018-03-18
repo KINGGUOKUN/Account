@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Account.Repository.Contract;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,8 @@ using System.Text;
 
 namespace Account.Repository.EF
 {
-    public abstract class Repository<TEntity> where TEntity : class
+    public abstract class Repository<TEntity> : IRepository<TEntity>
+        where TEntity : class
     {
         internal DbContext context;
         internal DbSet<TEntity> dbSet;
@@ -18,7 +20,7 @@ namespace Account.Repository.EF
             this.dbSet = context.Set<TEntity>();
         }
 
-        public virtual IEnumerable<TEntity> Get(
+        public virtual IQueryable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
@@ -38,11 +40,11 @@ namespace Account.Repository.EF
 
             if (orderBy != null)
             {
-                return orderBy(query).ToList();
+                return orderBy(query);
             }
             else
             {
-                return query.ToList();
+                return query;
             }
         }
 
@@ -75,6 +77,11 @@ namespace Account.Repository.EF
         {
             dbSet.Attach(entityToUpdate);
             context.Entry(entityToUpdate).State = EntityState.Modified;
+        }
+
+        public void Save()
+        {
+            this.context.SaveChanges();
         }
     }
 }

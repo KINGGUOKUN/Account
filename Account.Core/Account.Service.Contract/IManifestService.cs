@@ -14,8 +14,8 @@ namespace Account.Service.Contract
 
         Manifest AddManifest(Manifest manifest);
 
-        bool UpdateManifest(Manifest manifest);
+        void UpdateManifest(Manifest manifest);
 
-        bool DeleteManifest(string ID);
+        void DeleteManifest(string ID);
     }
 }

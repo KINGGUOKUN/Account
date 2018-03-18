@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Account.Repository.Contract
 {
-    public interface IManifestRepository : IRepository
+    public interface IManifestRepository : IRepository<Manifest>
     {
         Task<PaginatedList<Manifest>> GetManifests(DateTime start, DateTime end, int pageIndex, int pageSize);
 
-        Manifest GetManifestById(string ID);
+        //Manifest GetManifestById(string ID);
 
-        Manifest AddManifest(Manifest manifest);
+        //Manifest AddManifest(Manifest manifest);
 
-        bool UpdateManifest(Manifest manifest);
+        //void UpdateManifest(Manifest manifest);
 
-        bool DeleteManifest(string ID);
+        //void DeleteManifest(string ID);
     }
 }

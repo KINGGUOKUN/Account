@@ -9,11 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Account.Repository.EF
 {
-    public class DailyRepository : IDailyRepository
+    public class DailyRepository : Repository<Daily>, IDailyRepository
     {
         private readonly AccountContext _context;
 
         public DailyRepository(AccountContext context)
+            :base(context)
         {
             _context = context;
         }
