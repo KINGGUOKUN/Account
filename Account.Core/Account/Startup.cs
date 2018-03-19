@@ -39,6 +39,7 @@ namespace Account
             //         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), db => db.UseRowNumberForPaging()));
             services.AddDbContext<AccountContext>(options =>
                      options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<DbContext>(provider => provider.GetService<AccountContext>());
 
             services.AddCors();
             // Add framework services.

@@ -11,9 +11,9 @@ namespace Account.Repository.EF
 {
     public class EFUnitOfWork : IUnitOfWork
     {
-        private readonly AccountContext _context;
+        private readonly DbContext _context;
 
-        public EFUnitOfWork(AccountContext context)
+        public EFUnitOfWork(DbContext context)
         {
             _context = context;
         }
