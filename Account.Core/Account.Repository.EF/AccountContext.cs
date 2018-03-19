@@ -13,11 +13,11 @@ namespace Account.Repository.EF
         {
 
         }
-        
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<Manifest>().ToTable("Manifest");
-        //    modelBuilder.Entity<Daily>().ToTable("Daily");
-        //}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Manifest>().ToTable("Manifest");
+            modelBuilder.Entity<Daily>().ToTable("Daily");
+        }
     }
 }
