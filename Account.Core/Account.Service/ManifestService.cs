@@ -6,6 +6,7 @@ using Account.Entity;
 using Account.Service.Contract;
 using Account.Repository.Contract;
 using System.Linq;
+using Account.Infrustructure.Contract;
 
 namespace Account.Service
 {

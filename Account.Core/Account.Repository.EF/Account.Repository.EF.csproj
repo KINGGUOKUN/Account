@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Account.Common\Account.Common.csproj" />
     <ProjectReference Include="..\Account.Entity\Account.Entity.csproj" />
+    <ProjectReference Include="..\Account.Infrusture.EF\Account.Infrusture.EF.csproj" />
     <ProjectReference Include="..\Account.Repository.Contract\Account.Repository.Contract.csproj" />
   </ItemGroup>
 

@@ -11,13 +11,13 @@ namespace Account.Infrusture.EF
     public abstract class Repository<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
-        internal DbContext context;
-        internal DbSet<TEntity> dbSet;
+        protected DbContext Context;
+        protected DbSet<TEntity> DbSet;
 
         public Repository(DbContext context)
         {
-            this.context = context;
-            this.dbSet = context.Set<TEntity>();
+            this.Context = context;
+            this.DbSet = context.Set<TEntity>();
         }
 
         public virtual IQueryable<TEntity> Get(
@@ -25,7 +25,7 @@ namespace Account.Infrusture.EF
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = this.DbSet;
 
             if (filter != null)
             {
@@ -50,38 +50,38 @@ namespace Account.Infrusture.EF
 
         public virtual TEntity GetByID(object id)
         {
-            return dbSet.Find(id);
+            return DbSet.Find(id);
         }
 
         public virtual void Insert(TEntity entity)
         {
-            dbSet.Add(entity);
+            DbSet.Add(entity);
         }
 
         public virtual void Delete(object id)
         {
-            TEntity entityToDelete = dbSet.Find(id);
+            TEntity entityToDelete = DbSet.Find(id);
             Delete(entityToDelete);
         }
 
         public virtual void Delete(TEntity entityToDelete)
         {
-            if (context.Entry(entityToDelete).State == EntityState.Detached)
+            if (Context.Entry(entityToDelete).State == EntityState.Detached)
             {
-                dbSet.Attach(entityToDelete);
+                DbSet.Attach(entityToDelete);
             }
-            dbSet.Remove(entityToDelete);
+            DbSet.Remove(entityToDelete);
         }
 
         public virtual void Update(TEntity entityToUpdate)
         {
-            dbSet.Attach(entityToUpdate);
-            context.Entry(entityToUpdate).State = EntityState.Modified;
+            DbSet.Attach(entityToUpdate);
+            Context.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
         public void Save()
         {
-            this.context.SaveChanges();
+            this.Context.SaveChanges();
         }
     }
 }

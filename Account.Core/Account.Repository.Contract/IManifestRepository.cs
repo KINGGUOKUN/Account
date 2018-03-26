@@ -1,4 +1,5 @@
 ﻿using Account.Entity;
+using Account.Infrustructure.Contract;
 using System;
 using System.Collections.Generic;
 using System.Text;

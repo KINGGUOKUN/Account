@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Account.Entity;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Account.Infrusture.EF;
 
 namespace Account.Repository.EF
 {
@@ -18,7 +19,7 @@ namespace Account.Repository.EF
 
         public async Task<PaginatedList<Daily>> GetDailys(DateTime start, DateTime end, int pageIndex, int pageSize)
         {
-            var source = dbSet.Where(x => x.Date >= start && x.Date < new DateTime(end.Year, end.Month, end.Day).AddDays(1));
+            var source = DbSet.Where(x => x.Date >= start && x.Date < new DateTime(end.Year, end.Month, end.Day).AddDays(1));
             int count = await source.CountAsync();
             List<Daily> dailys = null;
             if (count > 0)
@@ -31,7 +32,7 @@ namespace Account.Repository.EF
 
         public async Task<PaginatedList<Monthly>> GetMonthlys(string start, string end, int pageIndex, int pageSize)
         {
-            var source = dbSet
+            var source = DbSet
                 .Where(x => x.Date >= DateTime.Parse(start) && x.Date <= DateTime.Parse(end).AddMonths(1).AddSeconds(-1))
                 .GroupBy(x => x.Date.ToString("yyyy-MM"), (k, v) =>
                 new Monthly
@@ -52,7 +53,7 @@ namespace Account.Repository.EF
 
         public async Task<PaginatedList<Yearly>> GetYearlys(int start, int end, int pageIndex, int pageSize)
         {
-            var source = dbSet
+            var source = DbSet
                 .Where(x => x.Date.Year >= start && x.Date.Year <= end)
                 .GroupBy(x => x.Date.Year, (k, v) =>
                 new Yearly

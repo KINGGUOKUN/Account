@@ -1,4 +1,6 @@
-﻿using Account.Repository.Contract;
+﻿using Account.Infrustructure.Contract;
+using Account.Infrusture.EF;
+using Account.Repository.Contract;
 using Autofac;
 using System;
 using System.Collections.Generic;
