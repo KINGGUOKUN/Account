@@ -81,11 +81,13 @@ namespace Account.Service
         public void DeleteManifest(string ID)
         {
             _manifestRepository.Delete(ID);
+            _manifestRepository.Save();
         }
 
         public void UpdateManifest(Manifest manifest)
         {
             _manifestRepository.Update(manifest);
+            _manifestRepository.Save();
         }
     }
 }
