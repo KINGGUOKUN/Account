@@ -12,13 +12,11 @@ namespace Account
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            CreateBuildWebHost(args).Build().Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
+        public static IWebHostBuilder CreateBuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-            .UseApplicationInsights()
-            .UseStartup<Startup>()
-            .Build();
+            .UseStartup<Startup>();
     }
 }

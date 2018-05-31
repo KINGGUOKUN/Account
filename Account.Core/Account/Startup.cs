@@ -13,6 +13,8 @@ using Autofac.Configuration;
 using Account.Repository.EF;
 using Microsoft.EntityFrameworkCore;
 using Account.Infrustures;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Account
 {
@@ -35,6 +37,13 @@ namespace Account
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             //services.AddDbContext<AccountContext>(options =>
             //         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), db => db.UseRowNumberForPaging()));
             services.AddDbContext<AccountContext>(options =>
@@ -44,7 +53,8 @@ namespace Account
             services.AddCors();
             // Add framework services.
             services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
-                .AddJsonOptions(options => options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss");
+                .AddJsonOptions(options => options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss")
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
@@ -67,14 +77,16 @@ namespace Account
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseMvc(routes =>
             {
