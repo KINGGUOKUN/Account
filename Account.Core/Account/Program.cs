@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore;
+using Microsoft.Extensions.Logging;
 
 namespace Account
 {
@@ -17,6 +18,12 @@ namespace Account
 
         public static IWebHostBuilder CreateBuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            .ConfigureLogging((hostingContext, logging) =>
+            {
+                logging.AddFilter("System", LogLevel.Warning);
+                logging.AddFilter("Microsoft", LogLevel.Warning);
+                logging.AddLog4Net();
+            })
             .UseStartup<Startup>();
     }
 }
