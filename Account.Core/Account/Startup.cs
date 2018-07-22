@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Account.Infrustures;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace Account
 {
@@ -46,8 +47,15 @@ namespace Account
 
             //services.AddDbContext<AccountContext>(options =>
             //         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), db => db.UseRowNumberForPaging()));
-            services.AddDbContext<AccountContext>(options =>
-                     options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<AccountContext>(options =>
+            //         options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContextPool<AccountContext>( // replace "YourDbContext" with the class name of your DbContext
+                options => options.UseMySql(Configuration.GetConnectionString("DefaultConnection"), // replace with your Connection String
+                    mysqlOptions =>
+                    {
+                        mysqlOptions.ServerVersion(new Version(5, 7, 17), ServerType.MySql); // replace with your Server Version and Type
+                    }
+            ));
             services.AddScoped<DbContext>(provider => provider.GetService<AccountContext>());
 
             services.AddCors();
