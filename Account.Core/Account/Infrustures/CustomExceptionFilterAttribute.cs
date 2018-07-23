@@ -35,7 +35,7 @@ namespace Account.Infrustures
                 {
                     StatusCode = 500
                 };
-                _logger.LogError(null, exception, "服务器处理出错", null);
+                _logger.LogError(exception, "服务器处理出错");
             }
 
             context.Result = result;
