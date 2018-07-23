@@ -13,7 +13,7 @@ namespace Account.Repository.EF
     public class DailyRepository : Repository<Daily>, IDailyRepository
     {
         public DailyRepository(AccountContext context)
-            :base(context)
+            : base(context)
         {
         }
 
@@ -32,16 +32,28 @@ namespace Account.Repository.EF
 
         public async Task<PaginatedList<Monthly>> GetMonthlys(string start, string end, int pageIndex, int pageSize)
         {
+            //var source = DbSet
+            //    .Where(x => x.Date >= DateTime.Parse(start) && x.Date <= DateTime.Parse(end).AddMonths(1).AddSeconds(-1))
+            //    .GroupBy(x => x.Date.ToString("yyyy-MM"), (k, v) =>
+            //    new Monthly
+            //    {
+            //        ID = Guid.NewGuid().ToString(),
+            //        Month = k,
+            //        Cost = v.Sum(x => x.Cost)
+            //    });
+            //int count = await source.CountAsync();
+
             var source = DbSet
                 .Where(x => x.Date >= DateTime.Parse(start) && x.Date <= DateTime.Parse(end).AddMonths(1).AddSeconds(-1))
-                .GroupBy(x => x.Date.ToString("yyyy-MM"), (k, v) =>
-                new Monthly
+                .GroupBy(x => DbFunctions.ExtractMonth(x.Date))
+                .Select(g => new Monthly
                 {
                     ID = Guid.NewGuid().ToString(),
-                    Month = k,
-                    Cost = v.Sum(x => x.Cost)
+                    Month = g.Key,
+                    Cost = g.Sum(x => x.Cost)
                 });
             int count = await source.CountAsync();
+
             List<Monthly> months = null;
             if (count > 0)
             {
@@ -53,14 +65,23 @@ namespace Account.Repository.EF
 
         public async Task<PaginatedList<Yearly>> GetYearlys(int start, int end, int pageIndex, int pageSize)
         {
+            //var source = DbSet
+            //    .Where(x => x.Date.Year >= start && x.Date.Year <= end)
+            //    .GroupBy(x => x.Date.Year, (k, v) =>
+            //    new Yearly
+            //    {
+            //        ID = Guid.NewGuid().ToString(),
+            //        Year = k,
+            //        Cost = v.Sum(x => x.Cost)
+            //    });
             var source = DbSet
                 .Where(x => x.Date.Year >= start && x.Date.Year <= end)
-                .GroupBy(x => x.Date.Year, (k, v) =>
-                new Yearly
+                .GroupBy(x => x.Date.Year)
+                .Select(g => new Yearly
                 {
                     ID = Guid.NewGuid().ToString(),
-                    Year = k,
-                    Cost = v.Sum(x => x.Cost)
+                    Year = g.Key,
+                    Cost = g.Sum(x => x.Cost)
                 });
             int count = await source.CountAsync();
             List<Yearly> yearlys = null;
