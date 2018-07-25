@@ -45,7 +45,7 @@ namespace Account.Repository.EF
 
             var source = DbSet
                 .Where(x => x.Date >= DateTime.Parse(start) && x.Date <= DateTime.Parse(end).AddMonths(1).AddSeconds(-1))
-                .GroupBy(x => DbFunctions.ExtractMonth(x.Date))
+                .GroupBy(x => AccountContext.ExtractMonth(x.Date))
                 .Select(g => new Monthly
                 {
                     ID = Guid.NewGuid().ToString(),

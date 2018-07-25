@@ -19,5 +19,11 @@ namespace Account.Repository.EF
             modelBuilder.Entity<Manifest>().ToTable("Manifest");
             modelBuilder.Entity<Daily>().ToTable("Daily");
         }
+
+        [DbFunction("ExtractMonth")]
+        public static string ExtractMonth(DateTime dateTime)
+        {
+            throw new Exception();
+        }
     }
 }
