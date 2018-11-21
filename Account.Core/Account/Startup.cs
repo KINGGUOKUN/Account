@@ -21,18 +21,12 @@ namespace Account
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddJsonFile("autofac.json")
-                .AddEnvironmentVariables();
-            Configuration = builder.Build();
+            Configuration = configuration;
         }
 
-        public IConfigurationRoot Configuration { get; }
+        public IConfiguration Configuration { get; }
         public IContainer Container { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -79,8 +73,11 @@ namespace Account
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:65062")
-                                  .AllowAnyHeader().AllowAnyMethod());
+            //app.UseCors(builder => builder.WithOrigins("http://localhost:65062")
+            //                      .AllowAnyHeader().AllowAnyMethod());
+            app.UseCors(builder => builder.AllowAnyOrigin()
+                                  .AllowAnyHeader()
+                                  .AllowAnyMethod());
 
             if (env.IsDevelopment())
             {

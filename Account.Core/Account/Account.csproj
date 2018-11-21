@@ -32,5 +32,11 @@
     <ProjectReference Include="..\Account.Repository.EF\Account.Repository.EF.csproj" />
     <ProjectReference Include="..\Account.Service\Account.Service.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Content Update="hostsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
 </Project>

@@ -1,0 +1,4 @@
+{
+    "urls": "http://*:8002",
+    "environment": "Development"
+}
