@@ -32,6 +32,8 @@ namespace Account
                 {
                     logging.AddFilter("System", LogLevel.Warning);
                     logging.AddFilter("Microsoft", LogLevel.Warning);
+                    logging.AddDebug();
+                    logging.AddConsole();
                     logging.AddLog4Net();
                 })
                 .UseStartup<Startup>();
